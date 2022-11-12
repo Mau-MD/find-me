@@ -29,12 +29,14 @@ import Amo from "../../components/perroPerdidoPerfil/Amo";
 import { getUrl } from "@trpc/client/dist/links/internals/httpUtils";
 import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
+import { useMediaQuery } from "@mantine/hooks";
 
 const id = () => {
   let reward = true;
   let visto = false;
   let raza = "perro de la calle";
   const router = useRouter();
+  const matches = useMediaQuery("(max-width: 768px)");
 
   const { data: session } = useSession();
   const { id } = router.query;
@@ -81,16 +83,37 @@ const id = () => {
   return (
     <Stack spacing={100}>
       <Card shadow="xl" p={0} radius="md" withBorder>
-        <Flex justify="" w={"100%"} gap={20}>
-          <div style={{ width: "40%" }}>
+        <Flex
+          justify=""
+          w={"100%"}
+          gap={20}
+          direction={matches ? "column" : "row"}
+        >
+          <div style={{ width: matches ? "100%" : "40%" }}>
             <Image src={data.imagenes[0]} radius="md" height={"300px"} />
           </div>
-          <Flex p={10} pr={40} justify={"space-between"} w={"60%"}>
-            <Stack maw={400} justify={"center"}>
+          <Flex
+            p={10}
+            pr={matches ? 10 : 40}
+            justify={"space-between"}
+            w={matches ? "100%" : "60%"}
+            direction={matches ? "column" : "row"}
+          >
+            <Stack
+              maw={400}
+              justify={"center"}
+              align={matches ? "center" : "initial"}
+            >
               <Stack spacing={6}>
-                <Title>{data?.nombrePerro} 🐾</Title>
+                <Title align={matches ? "center" : "left"}>
+                  {data?.nombrePerro} 🐾
+                </Title>
                 {data.casoAbierto && <Badge>Encontrado</Badge>}
-                <Flex gap={10} align="center">
+                <Flex
+                  gap={10}
+                  align={matches ? "center" : "left"}
+                  direction={matches ? "column" : "row"}
+                >
                   <Text color={"gray"}>{format(data?.fecha, "dd/MM/yy")}</Text>
                   {data?.recompensa && <Badge color="green">Recompensa</Badge>}
                   {!visto && <Badge color="blue">{raza}</Badge>}
@@ -107,7 +130,11 @@ const id = () => {
               </Text>
               <Title order={2}></Title>
             </Stack>
-            <Stack justify={"space-between"} pt={10} pb={30}>
+            <Stack
+              justify={matches ? "center" : "space-between"}
+              pt={10}
+              pb={30}
+            >
               <Amo nombre={data?.usuario.name} telefono={data?.telefono} />
               <Button
                 onClick={() => router.push(`/detalles/vistaDetallada/${id}`)}
@@ -148,7 +175,7 @@ const id = () => {
         {suggested && suggested.length > 0 && (
           <>
             <Title order={2}>Posibles Encuentros</Title>
-            <SimpleGrid cols={3}>
+            <SimpleGrid cols={matches ? 1 : 3}>
               {suggested.map((post) => (
                 <SearchCard
                   key={post.id}
@@ -196,6 +223,8 @@ const id = () => {
                 type="submit"
                 color={"green"}
                 loading={submitComment.isLoading}
+                mt={matches ? 10 : 0}
+                fullWidth={matches}
               >
                 Publicar
               </Button>

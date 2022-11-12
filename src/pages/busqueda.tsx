@@ -11,7 +11,11 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { useDebouncedState, useDebouncedValue } from "@mantine/hooks";
+import {
+  useDebouncedState,
+  useDebouncedValue,
+  useMediaQuery,
+} from "@mantine/hooks";
 import { PostPerdido, User } from "@prisma/client";
 import _ from "lodash";
 import { NextPage } from "next";
@@ -29,6 +33,7 @@ const Busqueda: NextPage = () => {
   const [color, setColor] = useState("");
   const [fecha, setFecha] = useState(new Date());
   const [nombre, setNombre] = useState("");
+  const matches = useMediaQuery("(max-width: 768px)");
 
   const [dName] = useDebouncedValue(nombre, 500);
   const [category, setCategory] = useState<"perdidos" | "vistos">("perdidos");
@@ -54,6 +59,9 @@ const Busqueda: NextPage = () => {
       <Group position={"apart"}>
         <Title>🐕 Perros {_.capitalize(category)}</Title>
         <SegmentedControl
+          style={{
+            width: matches ? "100%" : "auto",
+          }}
           onChange={(val) => setCategory(val as "perdidos" | "vistos")}
           value={category}
           data={[
@@ -72,8 +80,8 @@ const Busqueda: NextPage = () => {
         nombre={nombre}
         setNombre={setNombre}
       />
-      <Flex>
-        <Paper w={"50%"}>
+      <Flex direction={matches ? "column" : "row"}>
+        <Paper w={matches ? "100%" : "50%"}>
           <SearchList posts={posts} visto={category === "vistos"} />
         </Paper>
         <Paper pos={"relative"} pl={"lg"}>

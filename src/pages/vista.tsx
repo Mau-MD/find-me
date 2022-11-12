@@ -40,6 +40,7 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 import { useSession } from "next-auth/react";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface FormType {
   rescatado: boolean;
@@ -116,6 +117,8 @@ const vista: NextPage = () => {
   }>({ latitud: 31.87326329663515, longitud: -116.6459030853411 });
   const create = trpc.createPost.PostVisto.useMutation();
 
+  const matches = useMediaQuery("(max-width: 768px)");
+
   if (!isLoaded)
     return (
       <Center w={"100vw"}>
@@ -139,12 +142,12 @@ const vista: NextPage = () => {
         mb={12}
         {...form.getInputProps("detallesPlaca")}
       />
-      <Flex mb={12}>
+      <Flex mb={12} direction={matches ? "column" : "row"}>
         <TextInput
           label="Nombre que tenía en la placa"
           placeholder="ej. Bolt"
           mr={12}
-          style={{ width: "70%" }}
+          style={{ width: matches ? "100%" : "30%" }}
           {...form.getInputProps("nombre")}
         />
         <NumberInput
@@ -152,7 +155,7 @@ const vista: NextPage = () => {
           placeholder=""
           label="Edad aproximada"
           {...form.getInputProps("edad")}
-          style={{ width: "30%" }}
+          style={{ width: matches ? "100%" : "30%" }}
         />
       </Flex>
       <Flex mb={12}>

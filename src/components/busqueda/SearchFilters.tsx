@@ -6,6 +6,7 @@ import _ from "lodash";
 import { DatePicker } from "@mantine/dates";
 import { SelectControl } from "@mantine/ds/lib/Demo/Configurator/controls/SelectControl";
 import { colorSelect } from "../../pages/agregar";
+import { useMediaQuery } from "@mantine/hooks";
 
 // dog colors for select input in the form of {label: "color", value: "color"}
 const colors = [
@@ -33,6 +34,7 @@ const SearchFilters = ({
   fecha,
   setFecha,
 }: Props) => {
+  const matches = useMediaQuery("(max-width: 768px)");
   const { data: breeds } = useQuery(["breeds"], async () => {
     const res = await axios.get("https://dog.ceo/api/breeds/list/all ");
     const breedArray = Object.keys(res.data.message);
@@ -54,11 +56,17 @@ const SearchFilters = ({
             label="Raza"
             value={raza}
             onChange={(s) => setRaza(s || "")}
+            style={{
+              width: matches ? "100%" : "auto",
+            }}
           />
           <TextInput
             label="Nombre"
             value={nombre}
             onChange={(e) => setNombre(e.currentTarget.value)}
+            style={{
+              width: matches ? "100%" : "auto",
+            }}
           />
           <Select
             data={[{ label: "Todos los colores", value: "" }, ...colorSelect]}
@@ -66,6 +74,9 @@ const SearchFilters = ({
             label="Color"
             value={color}
             onChange={setColor}
+            style={{
+              width: matches ? "100%" : "auto",
+            }}
           />
         </>
       )}

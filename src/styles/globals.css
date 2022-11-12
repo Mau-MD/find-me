@@ -31,3 +31,11 @@ a {
   font-weight: 800;
   color: #0064b5
 }
+
+@media screen and (max-width: 768px) {
+  .map-container {
+    margin-top: 1em;
+    width: 70vw;
+    height: 40vh;
+  }
+}

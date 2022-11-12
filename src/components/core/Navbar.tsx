@@ -14,7 +14,7 @@ import {
   Menu,
   Avatar,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import LightAndDarkModeButton from "../LightDarkButton/LightDarkButton";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -130,13 +130,27 @@ const Navbar = ({ links }: Props) => {
     </span>
   ));
 
+  const matches = useMediaQuery("(max-width: 768px)");
+
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
-      <Affix position={{ top: 15, left: 30 }}>
+      <Affix
+        position={{
+          top: matches ? undefined : 15,
+          bottom: matches ? 15 : undefined,
+          left: 30,
+        }}
+      >
         <LightAndDarkModeButton />
       </Affix>
 
-      <Affix position={{ top: 15, right: 30 }}>
+      <Affix
+        position={{
+          top: matches ? undefined : 15,
+          bottom: matches ? 15 : undefined,
+          right: 30,
+        }}
+      >
         <InfoButton />
       </Affix>
 

@@ -41,6 +41,7 @@ import axios from "axios";
 import _ from "lodash";
 import { trpc } from "../utils/trpc";
 import { useSession } from "next-auth/react";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface FormType {
   nombrePerro: string;
@@ -112,6 +113,7 @@ const agregar: NextPage = () => {
     ];
   });
 
+  const matches = useMediaQuery("(max-width: 768px)");
   const create = trpc.createPost.PostPerdido.useMutation();
   if (!isLoaded) {
     return (
@@ -159,7 +161,7 @@ const agregar: NextPage = () => {
           defaultValue={0}
           placeholder=""
           label="Edad del perro"
-          style={{ width: "30%" }}
+          style={{ width: matches ? "100%" : "30%" }}
           {...getInputProps("edad")}
         />
       </Flex>
