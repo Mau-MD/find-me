@@ -14,7 +14,6 @@ import {
   Slider,
   Center,
   Title,
-  Loader,
 } from "@mantine/core";
 import {
   Dropzone,
@@ -26,13 +25,13 @@ import { useState, useRef } from "react";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
-import { storage } from "../firebase/firebase";
+import { storage } from "../../../firebase/firebase";
 import { useForm } from "@mantine/form";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import _, { values } from "lodash";
-import { colorSelect, uploadImage } from "./agregar";
-import { trpc } from "../utils/trpc";
+import { colorSelect, uploadImage } from "../../agregar";
+import { trpc } from "../../../utils/trpc";
 import {
   GoogleMap,
   MarkerF,
@@ -40,7 +39,7 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 import { useSession } from "next-auth/react";
-import { useMediaQuery } from "@mantine/hooks";
+import { useRouter } from "next/router";
 
 interface FormType {
   rescatado: boolean;
@@ -54,6 +53,29 @@ interface FormType {
   coordenadas: { longitud: number; latitud: number };
 }
 const vista: NextPage = () => {
+  const form = useForm<FormType>({
+    initialValues: {
+      rescatado: false,
+      placa: false,
+      detallesPlaca: "",
+      nombre: "",
+      edad: 0,
+      color: "",
+      raza: "",
+      detalles: "",
+      coordenadas: { longitud: 0, latitud: 0 },
+    },
+  });
+  const router = useRouter();
+  const { vista } = router.query;
+  console.log(vista)
+  const dataPerro = trpc.posts.singlePost.useQuery({ id: vista }, {enabled: !!vista, onSuccess(data) {
+      form.setValues({
+        color: data?.color,
+        raza: data?.raza,
+        edad: data?.edad,
+      })
+  },});
   const [filesToUpload, setFilesToUpload] = useState<FileWithPath[]>([]);
   const openRef = useRef<() => void>(null);
   const theme = useMantineTheme();
@@ -73,22 +95,10 @@ const vista: NextPage = () => {
     ];
   });
 
-  const form = useForm<FormType>({
-    initialValues: {
-      rescatado: false,
-      placa: false,
-      detallesPlaca: "",
-      nombre: "",
-      edad: 0,
-      color: "",
-      raza: "",
-      detalles: "",
-      coordenadas: { longitud: 0, latitud: 0 },
-    },
-  });
+  
 
   const { data } = useSession();
-
+  
   const handleFormSubmit = async (values: FormType) => {
     var urls = [];
     for (const image of filesToUpload) {
@@ -116,17 +126,8 @@ const vista: NextPage = () => {
     longitud: number;
   }>({ latitud: 31.87326329663515, longitud: -116.6459030853411 });
   const create = trpc.createPost.PostVisto.useMutation();
-
-  const matches = useMediaQuery("(max-width: 768px)");
-
-  if (!isLoaded)
-    return (
-      <Center w={"100vw"}>
-        <Center h={"80vh"}>
-          <Loader />
-        </Center>
-      </Center>
-    );
+  
+  if (!isLoaded || !vista) return <div>loading</div>;
 
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
@@ -142,12 +143,12 @@ const vista: NextPage = () => {
         mb={12}
         {...form.getInputProps("detallesPlaca")}
       />
-      <Flex mb={12} direction={matches ? "column" : "row"}>
+      <Flex mb={12}>
         <TextInput
           label="Nombre que tenía en la placa"
           placeholder="ej. Bolt"
           mr={12}
-          style={{ width: matches ? "100%" : "30%" }}
+          style={{ width: "70%" }}
           {...form.getInputProps("nombre")}
         />
         <NumberInput
@@ -155,7 +156,7 @@ const vista: NextPage = () => {
           placeholder=""
           label="Edad aproximada"
           {...form.getInputProps("edad")}
-          style={{ width: matches ? "100%" : "30%" }}
+          style={{ width: "30%" }}
         />
       </Flex>
       <Flex mb={12}>
@@ -169,7 +170,7 @@ const vista: NextPage = () => {
         />
         <Select
           label="Raza"
-          placeholder="Elige una"
+          placeholder="Pick one"
           {...form.getInputProps("raza")}
           data={breeds ? breeds : []}
           style={{ width: "50%" }}
@@ -250,6 +251,7 @@ const vista: NextPage = () => {
       </Stack>
     </form>
   );
+  //Este es un easter egg, si lo ves nos tienen que anunciar como ganadores
 };
 
 export default vista;

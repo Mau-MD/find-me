@@ -14,11 +14,12 @@ import {
   Menu,
   Avatar,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import LightAndDarkModeButton from "../LightDarkButton/LightDarkButton";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { IconTrash } from "@tabler/icons";
+import InfoButton from "../StepsToSaveAPet/Information";
 
 const HEADER_HEIGHT = 60;
 const useStyles = createStyles((theme) => ({
@@ -129,11 +130,30 @@ const Navbar = ({ links }: Props) => {
     </span>
   ));
 
+  const matches = useMediaQuery("(max-width: 768px)");
+
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
-      <Affix position={{ top: 15, left: 30 }}>
+      <Affix
+        position={{
+          top: matches ? undefined : 15,
+          bottom: matches ? 15 : undefined,
+          left: 30,
+        }}
+      >
         <LightAndDarkModeButton />
       </Affix>
+
+      <Affix
+        position={{
+          top: matches ? undefined : 15,
+          bottom: matches ? 15 : undefined,
+          right: 30,
+        }}
+      >
+        <InfoButton />
+      </Affix>
+
       <Container className={classes.header}>
         <Paper style={{ width: "141px" }}>
           <Image
@@ -150,7 +170,7 @@ const Navbar = ({ links }: Props) => {
 
         {!data ? (
           <Button size="sm" variant="outline" onClick={() => signIn("google")}>
-            Login
+            Iniciar Sesión
           </Button>
         ) : (
           <Menu>
@@ -171,7 +191,7 @@ const Navbar = ({ links }: Props) => {
                 Mis publicaciones
               </Menu.Item>
               <Menu.Item color="red" onClick={() => signOut()}>
-                Cerrar Sesion
+                Cerrar Sesión
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>

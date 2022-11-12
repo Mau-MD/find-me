@@ -16,14 +16,16 @@ import { PostsPerdidoWithUser } from "../../pages/busqueda";
 import SearchCard from "./SearchCard";
 import SearchFilters from "./SearchFilters";
 import { format } from "date-fns";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface Props {
   posts: PostsPerdidoWithUser[];
   visto: boolean;
 }
 const SearchList = ({ posts, visto }: Props) => {
+  const matches = useMediaQuery("(max-width: 768px)");
   return (
-    <ScrollArea style={{ height: "50vh" }}>
+    <ScrollArea style={{ height: matches ? "100vh" : "50vh" }}>
       <Stack style={{ overflowY: "scroll" }}>
         {posts.map((post) => (
           <SearchCard

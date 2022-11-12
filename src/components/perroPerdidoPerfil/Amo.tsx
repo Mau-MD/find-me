@@ -1,7 +1,10 @@
 import { Card, Stack, Title, Text } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 const Amo = ({ nombre, telefono }: any) => {
+  const matches = useMediaQuery("(max-width: 768px)");
+
   return (
-    <Stack align={"end"} spacing={5}>
+    <Stack align={matches ? "center" : "end"} spacing={5}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="44"

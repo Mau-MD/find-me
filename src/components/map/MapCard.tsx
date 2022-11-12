@@ -44,7 +44,13 @@ const MapCard = ({ post, visto }: Props) => {
         color="blue"
         fullWidth
         radius="md"
-        onClick={() => router.push(`/detalles/${post.id}`)}
+        onClick={() => {
+          if (visto) {
+            router.push(`/detalles/visto/${post.id}`);
+          } else {
+            router.push(`/detalles/${post.id}`);
+          }
+        }}
       >
         Ver Mas
       </Button>

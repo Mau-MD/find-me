@@ -16,6 +16,7 @@ import {
   Slider,
   Image,
   SimpleGrid,
+  Loader,
 } from "@mantine/core";
 import {
   Dropzone,
@@ -40,6 +41,7 @@ import axios from "axios";
 import _ from "lodash";
 import { trpc } from "../utils/trpc";
 import { useSession } from "next-auth/react";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface FormType {
   nombrePerro: string;
@@ -53,7 +55,7 @@ interface FormType {
   coordenadas: { latitud: number; longitud: number };
   radius: number;
 }
-const c = ["blanco", "negro", "cafe", "gris", "biColor", "triColor"];
+const c = ["blanco", "negro", "café", "gris", "biColor", "triColor"];
 export const colorSelect = c.map((c) => {
   return {
     label: _.capitalize(c),
@@ -111,9 +113,16 @@ const agregar: NextPage = () => {
     ];
   });
 
+  const matches = useMediaQuery("(max-width: 768px)");
   const create = trpc.createPost.PostPerdido.useMutation();
   if (!isLoaded) {
-    return <div>loading...</div>;
+    return (
+      <Center w={"100vw"}>
+        <Center h={"80vh"}>
+          <Loader />
+        </Center>
+      </Center>
+    );
   }
 
   const handleFormSubmit = async (values: FormType) => {
@@ -136,7 +145,7 @@ const agregar: NextPage = () => {
     });
   };
 
-  if (!breeds) return <div>Loading..</div>;
+  if (!breeds) return <div>Cargando..</div>;
 
   return (
     <form onSubmit={onSubmit(handleFormSubmit)}>
@@ -152,7 +161,7 @@ const agregar: NextPage = () => {
           defaultValue={0}
           placeholder=""
           label="Edad del perro"
-          style={{ width: "30%" }}
+          style={{ width: matches ? "100%" : "30%" }}
           {...getInputProps("edad")}
         />
       </Flex>
@@ -166,7 +175,7 @@ const agregar: NextPage = () => {
         />
         <Select
           label="Raza"
-          placeholder="Pick one"
+          placeholder="Elige una"
           searchable
           data={breeds}
           style={{ width: "50%" }}
@@ -205,7 +214,6 @@ const agregar: NextPage = () => {
         onDrop={(files) => {
           if (!files) return;
           setFilesToUpload(files);
-          console.log("done");
         }}
         onReject={(files) => console.log("rejected files", files)}
         maxSize={3 * 1024 ** 2}
@@ -232,10 +240,10 @@ const agregar: NextPage = () => {
 
           <div>
             <Text size="xl" inline>
-              Drag images here or click to select files
+              Jala imágenes, o haz click para seleccionar archivos
             </Text>
             <Text size="sm" color="dimmed" inline mt={7}>
-              Attach as many files as you like, each file should not exceed 5mb
+              Adjunta tantos archivos como gustes, cada archivo debe ser menor a 5mb
             </Text>
           </div>
         </Group>

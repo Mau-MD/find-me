@@ -11,6 +11,7 @@ import {
   ButtonProps,
   Paper,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { IconBrandFacebook } from "@tabler/icons";
 import { useRouter } from "next/router";
 import React from "react";
@@ -18,9 +19,13 @@ import { posts } from "../../server/trpc/router/getPost";
 import { trpc } from "../../utils/trpc";
 
 export function obtenerURL() {
-  var URL = "https://www.youtube.com/watch?v=CU0i9W_XkDI";
+  const router = useRouter();
+  const { id } = router.query;
+  console.log({ id });
+  var URL = `/detalles/${id}`;
   var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
   var final = facebook.concat(URL.toString());
+  console.log(final);
   return final;
 }
 
@@ -51,8 +56,15 @@ const SearchCard = ({
   found = false,
 }: Props) => {
   const router = useRouter();
+  const matches = useMediaQuery("(max-width: 768px)");
 
   const utils = trpc.useContext();
+  function obtenerURL(id: string) {
+    var URL = `https://find-me-phi.vercel.app/detalles/${id}`;
+    var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
+    var final = facebook.concat(URL.toString());
+    return final;
+  }
 
   const markAsCompleted = trpc.posts.markAsFound.useMutation({
     onSuccess: () => {
@@ -71,8 +83,13 @@ const SearchCard = ({
       withBorder
       shadow={"md"}
       w="100%"
+      style={{ cursor: "pointer" }}
       onClick={() => {
-        router.push(`/detalles/${id}`);
+        if (visto) {
+          router.push(`/detalles/visto/${id}`);
+        } else {
+          router.push(`/detalles/${id}`);
+        }
       }}
     >
       {found && (
@@ -112,10 +129,11 @@ const SearchCard = ({
           )}
           <Group position="apart">
             <Button
+              fullWidth={matches}
               component="a"
               target="_blank"
               rel="noopener noreferrer"
-              href={obtenerURL()}
+              href={obtenerURL(id)}
               leftIcon={<IconBrandFacebook size={20} />}
               styles={(theme) => ({
                 root: {
@@ -138,8 +156,10 @@ const SearchCard = ({
               <Group>
                 <Button
                   color="green"
+                  disabled={found}
                   onClick={() => markAsCompleted.mutate({ id: id })}
                   loading={markAsCompleted.isLoading}
+                  fullWidth={matches}
                 >
                   Marcar como encontado
                 </Button>
@@ -147,12 +167,13 @@ const SearchCard = ({
                   color="red"
                   onClick={() => deleteMutation.mutate({ id: id })}
                   loading={deleteMutation.isLoading}
+                  fullWidth={matches}
                 >
                   Eliminar Publicacion
                 </Button>
               </Group>
             ) : (
-              <Button>Ver Mas</Button>
+              <Button fullWidth={matches}>Ver Más</Button>
             )}
           </Group>
         </Stack>

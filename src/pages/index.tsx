@@ -9,7 +9,6 @@ import Bienvenida from "../components/mainpage/Bienvenida";
 import BannerMapa from "../components/mainpage/BannerMapa";
 import PerrosPrincipal from "../components/mainpage/PerrosPrincipal";
 import styles from "./index.module.css";
-import Footer from "../components/core/Footer";
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +16,6 @@ const Home: NextPage = () => {
       <Bienvenida />
       <BannerMapa />
       <PerrosPrincipal />
-      <Footer />
     </Stack>
   );
 };
