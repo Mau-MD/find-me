@@ -37,6 +37,7 @@ const SearchList = ({ posts, visto }: Props) => {
             visto={visto}
             raza={post.raza}
             found={post.casoAbierto}
+            id={post.id}
           />
         ))}
       </Stack>
