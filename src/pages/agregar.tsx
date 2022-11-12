@@ -214,7 +214,7 @@ const agregar: NextPage = () => {
             />
           </GoogleMap>
         </Center>
-        <Button type="submit">Subir</Button>
+        <Button type="submit" onClick={uploadImage}>Subir</Button>
       </Stack>
     </form>
   );
