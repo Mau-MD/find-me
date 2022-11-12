@@ -142,6 +142,7 @@ const SearchCard = ({
               <Group>
                 <Button
                   color="green"
+                  disabled={found}
                   onClick={() => markAsCompleted.mutate({ id: id })}
                   loading={markAsCompleted.isLoading}
                 >
