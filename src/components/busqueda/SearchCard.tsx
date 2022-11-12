@@ -14,19 +14,19 @@ import React from "react";
 interface Props {
   dogName: string;
   ownerName: string;
-  reward: number;
+  reward: boolean;
   dateLost: string;
 }
 const SearchCard = ({ ownerName, dogName, dateLost, reward }: Props) => {
   return (
     <Card withBorder shadow={"md"} w="100%">
-      <Group position="apart">
+      <Group position="apart" h="100%">
         <Avatar />
         <Stack w="80%">
           <Stack spacing={1}>
             <Group position="apart">
               <Title order={3}>{dogName}</Title>
-              <Badge color="green">${reward}</Badge>
+              {reward && <Badge color="green">Recompensa</Badge>}
             </Group>
             <Text color={"dimmed"}>De: {ownerName}</Text>
           </Stack>
