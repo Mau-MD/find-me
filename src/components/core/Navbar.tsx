@@ -135,9 +135,11 @@ const Navbar = ({ links }: Props) => {
       <Affix position={{ top: 15, left: 30 }}>
         <LightAndDarkModeButton />
       </Affix>
+
       <Affix position={{ top: 15, right: 30 }}>
         <InfoButton />
       </Affix>
+
       <Container className={classes.header}>
         <Paper style={{ width: "141px" }}>
           <Image

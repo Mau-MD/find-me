@@ -14,6 +14,7 @@ import {
   Slider,
   Center,
   Title,
+  Loader,
 } from "@mantine/core";
 import {
   Dropzone,
@@ -115,7 +116,15 @@ const vista: NextPage = () => {
   }>({ latitud: 31.87326329663515, longitud: -116.6459030853411 });
   const create = trpc.createPost.PostVisto.useMutation();
 
-  if (!isLoaded) return <div>loading</div>;
+  if (!isLoaded)
+    return (
+      <Center w={"100vw"}>
+        <Center h={"80vh"}>
+          <Loader />
+        </Center>
+      </Center>
+    );
+
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
       <Checkbox

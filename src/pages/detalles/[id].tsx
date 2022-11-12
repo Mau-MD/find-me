@@ -13,6 +13,9 @@ import {
   Card,
   Image,
   Center,
+  Textarea,
+  Checkbox,
+  Loader,
 } from "@mantine/core";
 import { PostPerdido, User } from "@prisma/client";
 import { format } from "date-fns";
@@ -24,6 +27,8 @@ import GMap from "../../components/map/Map";
 import CartaPerros from "../../components/mainpage/PerrosPrincipal/CartaPerros";
 import Amo from "../../components/perroPerdidoPerfil/Amo";
 import { getUrl } from "@trpc/client/dist/links/internals/httpUtils";
+import { useForm } from "@mantine/form";
+import { useSession } from "next-auth/react";
 
 const id = () => {
   let reward = true;
@@ -31,6 +36,7 @@ const id = () => {
   let raza = "perro de la calle";
   const router = useRouter();
 
+  const { data: session } = useSession();
   const { id } = router.query;
   const data = trpc.posts.singlePost.useQuery({ id }).data;
   const { data: suggested } = trpc.suggestions.getSuggestions.useQuery(
@@ -42,9 +48,34 @@ const id = () => {
     },
     { enabled: !!data }
   );
+  const { data: comments } = trpc.comments.getCommentsFromPost.useQuery(
+    {
+      postId: data?.id || "",
+    },
+    { enabled: !!data }
+  );
 
+  const form = useForm({
+    initialValues: {
+      comentario: "",
+      compartir: false,
+    },
+  });
+  const utils = trpc.useContext();
+
+  const submitComment = trpc.comments.addCommentToPost.useMutation({
+    onSuccess: () => {
+      utils.comments.getCommentsFromPost.invalidate({ postId: data?.id || "" });
+    },
+  });
   if (!data) {
-    return <div>loading...</div>;
+    return (
+      <Center w={"100vw"}>
+        <Center h={"80vh"}>
+          <Loader />
+        </Center>
+      </Center>
+    );
   }
 
   return (
@@ -58,6 +89,7 @@ const id = () => {
             <Stack maw={400} justify={"center"}>
               <Stack spacing={6}>
                 <Title>{data?.nombrePerro} 🐾</Title>
+                {data.casoAbierto && <Badge>Encontrado</Badge>}
                 <Flex gap={10} align="center">
                   <Text color={"gray"}>{format(data?.fecha, "dd/MM/yy")}</Text>
                   {data?.recompensa && <Badge color="green">Recompensa</Badge>}
@@ -129,6 +161,62 @@ const id = () => {
             </SimpleGrid>
           </>
         )}
+      </Stack>
+      <Stack>
+        <Title order={2}>Comentarios</Title>
+        <form
+          onSubmit={form.onSubmit((vals) => {
+            submitComment.mutate({
+              content: vals.comentario,
+              showEmailToOwner: vals.compartir,
+              postId: id as string,
+              poster: session?.user.id || "",
+            });
+            form.reset();
+          })}
+        >
+          <Card shadow={"md"} withBorder>
+            <Stack>
+              <Textarea
+                label="Comentario"
+                {...form.getInputProps("comentario")}
+              />
+              <Checkbox
+                label="Compartir Informacion de Contacto con el Dueno"
+                {...form.getInputProps("compartir")}
+              />
+            </Stack>
+            <Group position="right">
+              <Button
+                type="submit"
+                color={"green"}
+                loading={submitComment.isLoading}
+              >
+                Publicar
+              </Button>
+            </Group>
+          </Card>
+          <Stack mt={20}>
+            {comments?.map((comment) => (
+              <Card key={comment.id} withBorder shadow="md">
+                <Stack spacing={1}>
+                  <Group>
+                    <Title order={5}>{comment.usuario.name}</Title>
+                    {comment.postPerdido.userId === session?.user.id &&
+                      comment.showEmailToOwner && (
+                        <Badge color="gray">{comment.usuario.email}</Badge>
+                      )}
+                  </Group>
+                  <Text color="dimmed" size={"sm"}>
+                    {format(comment.fecha, "dd/MM/yy")}
+                  </Text>
+                </Stack>
+
+                <Text mt={5}>{comment.contenido}</Text>
+              </Card>
+            ))}
+          </Stack>
+        </form>
       </Stack>
     </Stack>
   );

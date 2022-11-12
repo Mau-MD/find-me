@@ -29,7 +29,7 @@ const PerrosPrincipal = () => {
 
   return (
     <Stack align={"center"}>
-      <Title order={2}>Perros En Busqueda</Title>
+      <Title order={2}>Perros En Búsqueda</Title>
       <SimpleGrid cols={2}>
         {filteredPosts &&
           filteredPosts.map((post) => (

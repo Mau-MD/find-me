@@ -1,8 +1,10 @@
 import {
   Card,
+  Center,
   Flex,
   Group,
   Header,
+  Loader,
   Paper,
   SegmentedControl,
   Stack,
@@ -22,7 +24,6 @@ import { trpc } from "../utils/trpc";
 export type PostsPerdidoWithUser = PostPerdido & {
   usuario: User;
 };
-
 const Busqueda: NextPage = () => {
   const [raza, setRaza] = useState("");
   const [color, setColor] = useState("");
@@ -40,7 +41,13 @@ const Busqueda: NextPage = () => {
   });
 
   if (!posts) {
-    return <div>Loading...</div>;
+    return (
+      <Center w={"100vw"}>
+        <Center h={"80vh"}>
+          <Loader />
+        </Center>
+      </Center>
+    );
   }
   return (
     <Stack>

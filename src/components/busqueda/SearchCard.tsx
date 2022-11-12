@@ -154,6 +154,7 @@ const SearchCard = ({
               <Group>
                 <Button
                   color="green"
+                  disabled={found}
                   onClick={() => markAsCompleted.mutate({ id: id })}
                   loading={markAsCompleted.isLoading}
                 >
@@ -168,7 +169,7 @@ const SearchCard = ({
                 </Button>
               </Group>
             ) : (
-              <Button>Ver Mas</Button>
+              <Button>Ver Más</Button>
             )}
           </Group>
         </Stack>

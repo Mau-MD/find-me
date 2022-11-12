@@ -16,6 +16,7 @@ import {
   Slider,
   Image,
   SimpleGrid,
+  Loader,
 } from "@mantine/core";
 import {
   Dropzone,
@@ -113,7 +114,13 @@ const agregar: NextPage = () => {
 
   const create = trpc.createPost.PostPerdido.useMutation();
   if (!isLoaded) {
-    return <div>loading...</div>;
+    return (
+      <Center w={"100vw"}>
+        <Center h={"80vh"}>
+          <Loader />
+        </Center>
+      </Center>
+    );
   }
 
   const handleFormSubmit = async (values: FormType) => {

@@ -25,3 +25,9 @@ a {
   width: 70vw;
   height: 50vh;
 }
+
+.counter {
+  font-size: 50px;
+  font-weight: 800;
+  color: #0064b5
+}
