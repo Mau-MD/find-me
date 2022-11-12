@@ -34,7 +34,6 @@ const agregar: NextPage = () => {
   const openRef = useRef<() => void>(null);
   const theme = useMantineTheme();
 
-
   const uploadImage = () => {
     if (imageUpload == null) return
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
@@ -42,6 +41,7 @@ const agregar: NextPage = () => {
       .then(() => {
         console.log("Image uploaded")
       })
+    }
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDRbZkLZZYFiPYAJjSm6wE6k8QCs2PyDG0" || "",
@@ -178,9 +178,6 @@ const agregar: NextPage = () => {
       <Button onClick={uploadImage}>
         Click here
       </Button>
-    </div>
-  )
-}
 
       <Stack my={30}>
         <Title order={4}>Click para agregar punto</Title>
