@@ -237,7 +237,7 @@ const MarkerClicked = ({ post, visto }: MarkerProps) => {
               lng: post.longitud,
             }}
           >
-            <MapCard post={post} />
+            <MapCard post={post} visto={visto} />
           </InfoWindowF>
           <CircleF
             radius={radio}

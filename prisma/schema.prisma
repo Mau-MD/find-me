@@ -93,6 +93,7 @@ model PostVisto {
   imagen        String
   rescatado     Boolean
   detallesPlaca String?
+  nombrePlaca   String?
   edad          Int?
   telefono      String   @default("")
 }
