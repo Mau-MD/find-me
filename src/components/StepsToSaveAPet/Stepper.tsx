@@ -38,7 +38,7 @@ function Steps({ setOpened }: any) {
           <Stack justify={"center"} align={"center"}>
             <Title>Primer Paso:</Title>
             <Text>
-              `Asegurate de tomar fotos del perro para poder integrarlas a tu
+              `Asegúrate de tomar fotos del perro para poder integrarlas a tu
               publicación
             </Text>
             <Image
@@ -115,7 +115,7 @@ function Steps({ setOpened }: any) {
 
       <Group position="center" mt="xl">
         <Button variant="default" onClick={prevStep}>
-          Atras
+          Atrás
         </Button>
         <Button onClick={nextStep} color="orange">
           Siguiente paso
