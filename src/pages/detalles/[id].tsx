@@ -63,7 +63,7 @@ const id = () => {
             </Stack>
             <Stack justify={"space-between"} pt={10} pb={30}>
               <Amo nombre={data?.usuario.name} telefono={data?.telefono} />
-              <Button onClick={() => router.push("/vista")}>
+              <Button onClick={() => router.push(`/vista/${id}`)}>
                 <Group spacing={7}>
                   <Text>Vi a este perro</Text>
                   <svg

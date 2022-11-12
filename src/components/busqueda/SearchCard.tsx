@@ -18,9 +18,13 @@ import { posts } from "../../server/trpc/router/getPost";
 import { trpc } from "../../utils/trpc";
 
 export function obtenerURL() {
-  var URL = "https://www.youtube.com/watch?v=CU0i9W_XkDI";
+  const router = useRouter();
+  const { id } = router.query;
+  console.log({id})
+  var URL = `/detalles/${id}`;
   var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
   var final = facebook.concat(URL.toString());
+  console.log(final);
   return final;
 }
 
@@ -53,6 +57,12 @@ const SearchCard = ({
   const router = useRouter();
 
   const utils = trpc.useContext();
+   function obtenerURL(id: string){
+    var URL = `http://localhost:3000/detalles/${id}`;
+    var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
+    var final = facebook.concat(URL.toString());
+    return final
+  }
 
   const markAsCompleted = trpc.posts.markAsFound.useMutation({
     onSuccess: () => {
@@ -115,7 +125,9 @@ const SearchCard = ({
               component="a"
               target="_blank"
               rel="noopener noreferrer"
-              href={obtenerURL()}
+              href={
+                obtenerURL(id)
+              }
               leftIcon={<IconBrandFacebook size={20} />}
               styles={(theme) => ({
                 root: {
