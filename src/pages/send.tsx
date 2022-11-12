@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { trpc } from '../utils/trpc'
 
 const send: NextPage = () => {  
-  const query = trpc.posts.singlePost.useQuery({ id: "cladstbyq000217euv0im0h11" })
+  const query = trpc.posts.singlePost.useQuery({ id })
   const queryEmails = trpc.emails.GetEmails.useQuery()
   const mutation = trpc.emails.Send.useMutation()
 
@@ -12,7 +12,6 @@ const send: NextPage = () => {
     const all_emails = queryEmails.data
     console.log(all_emails)
     for (const item in all_emails) {
-      console.log(item)
       mutation.mutate({
         from_mail: 'internhub99@gmail.com',
         to_mail: all_emails[item].email,
