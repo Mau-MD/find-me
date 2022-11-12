@@ -1,3 +1,5 @@
+import { Flex } from "@mantine/core";
+import CardDisplay from "../stripe/Donation";
 import { createStyles, Anchor, Group, Image, ActionIcon } from "@mantine/core";
 import {
   IconBrandTwitter,
@@ -81,6 +83,9 @@ const Footer = () => {
             <IconBrandInstagram size={18} stroke={1.5} />
           </ActionIcon>
         </Group>
+        <Flex justify="right">
+          <CardDisplay />
+        </Flex>
       </div>
     </div>
   );
