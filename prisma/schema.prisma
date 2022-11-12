@@ -73,6 +73,7 @@ model PostPerdido {
   recompensa  Boolean     @default(false)
   edad        Int?
   casoAbierto Boolean     @default(true)
+  nombrePerro String
 }
 
 model PostVisto {
