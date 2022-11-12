@@ -20,7 +20,7 @@ import { trpc } from "../../utils/trpc";
 export function obtenerURL() {
   const router = useRouter();
   const { id } = router.query;
-  console.log({id})
+  console.log({ id });
   var URL = `/detalles/${id}`;
   var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
   var final = facebook.concat(URL.toString());
@@ -57,11 +57,11 @@ const SearchCard = ({
   const router = useRouter();
 
   const utils = trpc.useContext();
-   function obtenerURL(id: string){
+  function obtenerURL(id: string) {
     var URL = `https://find-me-phi.vercel.app/detalles/${id}`;
     var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
     var final = facebook.concat(URL.toString());
-    return final
+    return final;
   }
 
   const markAsCompleted = trpc.posts.markAsFound.useMutation({
@@ -130,9 +130,7 @@ const SearchCard = ({
               component="a"
               target="_blank"
               rel="noopener noreferrer"
-              href={
-                obtenerURL(id)
-              }
+              href={obtenerURL(id)}
               leftIcon={<IconBrandFacebook size={20} />}
               styles={(theme) => ({
                 root: {

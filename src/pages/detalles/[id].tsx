@@ -97,16 +97,21 @@ const id = () => {
                 </Flex>
               </Stack>
               <Text style={{ color: "#00467f" }} weight={800}>
-                {data?.raza}
+                Raza: {data?.raza}
               </Text>
-              <Text weight={500}>{data?.edad} años</Text>
+              <Text weight={500}> Año/s: {data?.edad}</Text>
 
-              <Text align="justify">{data?.detalles}</Text>
+              <Text align="justify">
+                <span style={{ font: "bold" }}></span>
+                {data?.detalles}
+              </Text>
               <Title order={2}></Title>
             </Stack>
             <Stack justify={"space-between"} pt={10} pb={30}>
               <Amo nombre={data?.usuario.name} telefono={data?.telefono} />
-              <Button onClick={() => router.push(`/detalles/vistaDetallada/${id}`)}>
+              <Button
+                onClick={() => router.push(`/detalles/vistaDetallada/${id}`)}
+              >
                 <Group spacing={7}>
                   <Text>Vi a este perro</Text>
                   <svg
