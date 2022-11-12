@@ -205,9 +205,11 @@ const MarkerClicked = ({ post, visto }: MarkerProps) => {
     //var differenceInHours = require('date-fns/differenceInHours')
     //differenceInHours(now, post.fecha)
     var fRadio = (strength * differenceInHours(now, post.fecha)) / 2;
-    if (fRadio > 500) {
-      fRadio = 500;
+    if (fRadio > 1000) {
+      fRadio = 1000;
     }
+    console.log(differenceInHours(now, post.fecha));
+    console.log(fRadio);
     setRadio(fRadio * 100);
   }, []);
 
