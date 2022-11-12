@@ -1,6 +1,9 @@
 import { z } from "zod";
+import { sendEmail } from "../../twilio/sendEmail";
 
 import { router, publicProcedure } from "../trpc";
+import { emailRouter } from "./emails";
+
 
 export const createPostRouter = router({
   PostVisto: publicProcedure
@@ -58,8 +61,8 @@ export const createPostRouter = router({
         telefono: z.string(),
       })
     )
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.postPerdido.create({
+    .mutation(async ({ ctx, input }) => {
+      const post = await ctx.prisma.postPerdido.create({
         data: {
           nombrePerro: input.nombrePerro,
           userId: input.userId,
@@ -77,5 +80,21 @@ export const createPostRouter = router({
           casoAbierto: false,
         },
       });
+      const emails = await ctx.prisma.user.findMany({
+        select: {
+          email: true
+        }
+      });
+      for (const item in emails) {
+        sendEmail({
+          from_mail: 'internhub99@gmail.com',
+          to_mail: emails[item]?.email || "",
+          raza: post.raza,
+          imagen: post.imagenes[0] || "",
+          color: post.color || "",
+          detalles: post.detalles || "",
+          edad: post.edad || 0
+        })
+      }
     }),
 });
