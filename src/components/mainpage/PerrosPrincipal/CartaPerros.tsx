@@ -22,9 +22,9 @@ const CartaPerros = () => {
         ></img>
         <Stack justify={"space-between"} pt={5} pb={5}>
           <Group p={0}>
-            <Stack spacing={0}>
+            <Stack>
               <Title order={3}>Nombre del perro</Title>
-              <Text size="mb">Dueño del perro</Text>
+              <Text color={"dimmed"}>Dueño del perro</Text>
             </Stack>
             {reward && <Badge color="green">Recompensa</Badge>}
             {!visto && <Badge color="blue">{raza}</Badge>}

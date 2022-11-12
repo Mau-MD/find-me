@@ -9,11 +9,15 @@ import {
   Title,
   Image,
   ButtonProps,
+  Paper,
 } from "@mantine/core";
-import { IconBrandFacebook } from '@tabler/icons';
+import { IconBrandFacebook } from "@tabler/icons";
+import { useRouter } from "next/router";
 import React from "react";
+import { posts } from "../../server/trpc/router/getPost";
+import { trpc } from "../../utils/trpc";
 
-export function obtenerURL(){
+export function obtenerURL() {
   var URL = "https://www.youtube.com/watch?v=CU0i9W_XkDI";
   var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
   var final = facebook.concat(URL.toString());
@@ -21,6 +25,7 @@ export function obtenerURL(){
 }
 
 interface Props {
+  id: string;
   dogName: string;
   ownerName: string;
   reward: boolean;
@@ -29,8 +34,11 @@ interface Props {
   detalles: string | null;
   visto: boolean;
   raza: string;
+  isOwn: boolean;
+  found: boolean;
 }
 const SearchCard = ({
+  id,
   ownerName,
   dogName,
   dateLost,
@@ -39,11 +47,45 @@ const SearchCard = ({
   detalles,
   visto,
   raza,
+  isOwn = false,
+  found = false,
 }: Props) => {
+  const router = useRouter();
+
+  const utils = trpc.useContext();
+
+  const markAsCompleted = trpc.posts.markAsFound.useMutation({
+    onSuccess: () => {
+      utils.posts.getOwnPosts.invalidate();
+    },
+  });
+
+  const deleteMutation = trpc.posts.deletePost.useMutation({
+    onSuccess: () => {
+      utils.posts.getOwnPosts.invalidate();
+    },
+  });
+
   return (
-    <Card withBorder shadow={"md"} w="100%">
+    <Card
+      withBorder
+      shadow={"md"}
+      w="100%"
+      onClick={() => {
+        router.push(`/detalles/${id}`);
+      }}
+    >
+      {found && (
+        <Card.Section>
+          <Paper
+            style={{ background: "green", textAlign: "center", color: "white" }}
+          >
+            ENCONTRADO
+          </Paper>
+        </Card.Section>
+      )}
       <Stack h="100%">
-        <Image src={image} height="200px" />
+        {image && <Image src={image} height="200px" />}
         <Stack>
           <Stack spacing={1}>
             <Group position="apart">
@@ -63,9 +105,12 @@ const SearchCard = ({
             )}
             {detalles && <Text>{detalles}</Text>}
           </Stack>
-          <Group position="apart">
+          {visto ? (
+            <Text>Visto el {dateLost}</Text>
+          ) : (
             <Text>Perdido desde {dateLost}</Text>
-            {!visto && <Text>Perdido desde {dateLost}</Text>}
+          )}
+          <Group position="apart">
             <Button
               component="a"
               target="_blank"
@@ -74,11 +119,11 @@ const SearchCard = ({
               leftIcon={<IconBrandFacebook size={20} />}
               styles={(theme) => ({
                 root: {
-                  backgroundColor: '#00acee',
+                  backgroundColor: "#00acee",
                   border: 0,
                   height: 35,
-                  '&:hover': {
-                    backgroundColor: theme.fn.darken('#00acee', 0.05),
+                  "&:hover": {
+                    backgroundColor: theme.fn.darken("#00acee", 0.05),
                   },
                 },
 
@@ -89,8 +134,26 @@ const SearchCard = ({
             >
               Compartir en Facebook
             </Button>
-            
-            <Button>Ver Mas</Button>
+            {isOwn ? (
+              <Group>
+                <Button
+                  color="green"
+                  onClick={() => markAsCompleted.mutate({ id: id })}
+                  loading={markAsCompleted.isLoading}
+                >
+                  Marcar como encontado
+                </Button>
+                <Button
+                  color="red"
+                  onClick={() => deleteMutation.mutate({ id: id })}
+                  loading={deleteMutation.isLoading}
+                >
+                  Eliminar Publicacion
+                </Button>
+              </Group>
+            ) : (
+              <Button>Ver Mas</Button>
+            )}
           </Group>
         </Stack>
       </Stack>

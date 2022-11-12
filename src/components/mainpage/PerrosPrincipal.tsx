@@ -34,6 +34,7 @@ const PerrosPrincipal = () => {
         {filteredPosts &&
           filteredPosts.map((post) => (
             <SearchCard
+              id={post.id}
               key={post.id}
               ownerName={post.usuario.name || ""}
               dogName={post.nombrePerro}
@@ -43,6 +44,7 @@ const PerrosPrincipal = () => {
               detalles={post.detalles ?? post.detallesPerro}
               visto={false}
               raza={post.raza}
+              found={post.casoAbierto}
             />
           ))}
       </SimpleGrid>
