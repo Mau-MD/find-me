@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import { IconBrandFacebook } from '@tabler/icons';
 import React from "react";
+import { useRouter } from "next/router";
 
 export function obtenerURL(){
   var URL = "https://www.youtube.com/watch?v=CU0i9W_XkDI";
@@ -40,8 +41,17 @@ const SearchCard = ({
   visto,
   raza,
 }: Props) => {
+  const router = useRouter();
+
   return (
-    <Card withBorder shadow={"md"} w="100%">
+    <Card
+      withBorder
+      shadow={"md"}
+      w="100%"
+      onClick={() => {
+        router.push("/PerroPerdidoPerfil");
+      }}
+    >
       <Stack h="100%">
         <Image src={image} height="200px" />
         <Stack>

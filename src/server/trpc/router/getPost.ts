@@ -45,4 +45,17 @@ export const posts = router({
     });
     return posts.length;
   }),
+  singlePost: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      return await ctx.prisma.postPerdido.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });

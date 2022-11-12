@@ -10,14 +10,17 @@ import {
   Stack,
   Container,
 } from "@mantine/core";
+import GMap from "../components/map/Map";
 import React from "react";
 import PerroCarousel from "../components/perroPerdidoPerfil/Carousel";
 import Amo from "..//components/perroPerdidoPerfil/Amo";
+import { useRouter } from "next/router";
 
 const Profile = () => {
   let reward = true;
   let visto = false;
   let raza = "perro de la calle";
+  const router = useRouter();
   return (
     <Stack>
       <Card shadow="xl" p={0} radius="md" withBorder>
@@ -32,7 +35,7 @@ const Profile = () => {
           </div>
           <Flex p={10} pr={40} justify={"space-between"} w={"60%"}>
             <Stack maw={400} justify={"center"}>
-              <Stack spacing={0}>
+              <Stack spacing={6}>
                 <Title>{"Nombre del perro"} 🐾</Title>
                 <Flex gap={10} align="center">
                   <Text color={"gray"}>Perdido desde ----</Text>
@@ -54,7 +57,7 @@ const Profile = () => {
             </Stack>
             <Stack justify={"space-between"} pt={10} pb={30}>
               <Amo />
-              <Button>
+              <Button onClick={() => router.push("/vista")}>
                 <Group spacing={7}>
                   <Text>Vi a este perro</Text>
                   <svg
@@ -80,6 +83,7 @@ const Profile = () => {
         </Flex>
       </Card>
       <div style={{ height: "300px", border: "1px solid black" }}>
+        {/* <GMap posts={} visto={true} containerClass="map-container-2" /> */}
         <Container>Aqui va un mapa Grandote</Container>
       </div>
     </Stack>
