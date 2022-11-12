@@ -43,7 +43,6 @@ const Footer = () => {
   const links = [
     { label: "Contáctanos", href: "" },
     { label: "Soporte", href: "" },
-    { label: "Donaciones", href: "" },
     { label: "¿Quiénes somos?", href: "" },
   ];
   const { classes } = useStyles();
