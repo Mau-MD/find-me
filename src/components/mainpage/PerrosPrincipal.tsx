@@ -43,6 +43,7 @@ const PerrosPrincipal = () => {
               detalles={post.detalles ?? post.detallesPerro}
               visto={false}
               raza={post.raza}
+              found={post.casoAbierto}
             />
           ))}
       </SimpleGrid>

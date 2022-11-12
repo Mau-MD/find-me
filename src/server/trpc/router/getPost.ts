@@ -37,6 +37,16 @@ export const posts = router({
         },
       });
     }),
+  getOwnPosts: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.postPerdido.findMany({
+      where: {
+        userId: ctx.session?.user.id,
+      },
+      include: {
+        usuario: true,
+      },
+    });
+  }),
   foundSoFar: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.prisma.postPerdido.findMany({
       where: {
@@ -45,4 +55,29 @@ export const posts = router({
     });
     return posts.length;
   }),
+  markAsFound: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.postPerdido.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          casoAbierto: true,
+        },
+      });
+    }),
+  deletePost: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.postPerdido.delete({ where: { id: input.id } });
+    }),
 });

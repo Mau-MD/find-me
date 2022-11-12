@@ -167,7 +167,9 @@ const Navbar = ({ links }: Props) => {
               </Button>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item>Mis publicaciones</Menu.Item>
+              <Menu.Item onClick={() => router.push("/mine")}>
+                Mis publicaciones
+              </Menu.Item>
               <Menu.Item color="red" onClick={() => signOut()}>
                 Cerrar Sesion
               </Menu.Item>
