@@ -9,6 +9,7 @@ import {
   Image,
 } from "@mantine/core";
 import { format } from "date-fns";
+import { useRouter } from "next/router";
 import { PostsPerdidoWithUser } from "../../pages/busqueda";
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
   visto: boolean;
 }
 const MapCard = ({ post, visto }: Props) => {
+  const router = useRouter();
   return (
     <Stack spacing={"sm"}>
       {post.imagenes[0] && (
@@ -37,7 +39,13 @@ const MapCard = ({ post, visto }: Props) => {
           {format(post.fecha, "dd/MM/yy")}
         </Text>
       </Stack>
-      <Button variant="light" color="blue" fullWidth radius="md">
+      <Button
+        variant="light"
+        color="blue"
+        fullWidth
+        radius="md"
+        onClick={() => router.push(`/detalles/${post.id}`)}
+      >
         Ver Mas
       </Button>
     </Stack>
