@@ -1,4 +1,4 @@
-import { Card, Group, Stack, Title, Text } from "@mantine/core";
+import { Card, Group, Stack, Title, Text, Flex } from "@mantine/core";
 
 const CartaPerros = () => {
   return (
@@ -8,24 +8,25 @@ const CartaPerros = () => {
       radius="md"
       withBorder
       style={{ maxWidth: "600px" }}
+      m={10}
     >
-      <Group>
+      <Flex gap={15}>
         <img
           src={
             "https://th.bing.com/th/id/R.e95c6ea4db3b79eda1c8a94c886c8071?rik=GhlexzYxf4p9RQ&pid=ImgRaw&r=0"
           }
-          style={{ width: "30%", borderRadius: "10%" }}
+          style={{ width: "45%", borderRadius: "10%" }}
         ></img>
-        <Stack justify={"space-between"} style={{ border: "1px solid black" }}>
-          <Group>
+        <Stack justify={"space-between"} pt={5} pb={5}>
+          <Group p={0}>
             <Stack spacing={0}>
-              <Title size={"sm"}>Nombre del perro</Title>
-              <Text size="xs">Dueño del perro</Text>
+              <Title order={3}>Nombre del perro</Title>
+              <Text size="mb">Dueño del perro</Text>
             </Stack>
           </Group>
-          <div>perdido desde x</div>
+          <div>Perdido desde el</div>
         </Stack>
-      </Group>
+      </Flex>
     </Card>
   );
 };

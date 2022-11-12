@@ -13,7 +13,7 @@ const PerrosPrincipal = () => {
   return (
     <Stack align={"center"}>
       <Title weight={800}>Perros Buscados</Title>
-      <Button>Buscar perros</Button>
+      <Button>Buscar Perros</Button>
       <Grid columns={2} gutter={"xl"}>
         <Grid.Col span={1}>
           <CartaPerros />
@@ -24,7 +24,7 @@ const PerrosPrincipal = () => {
           <CartaPerros />
         </Grid.Col>
       </Grid>
-      <Button>Buscar perros</Button>
+      <Button>Buscar Perros</Button>
     </Stack>
   );
 };

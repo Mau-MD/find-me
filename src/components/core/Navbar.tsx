@@ -1,5 +1,4 @@
 import { useState } from "react";
-import logo from "../../img/findme_imagotipo.png";
 import {
   createStyles,
   Header,
@@ -9,6 +8,7 @@ import {
   Paper,
   Transition,
   Title,
+  Image,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/router";
@@ -125,7 +125,11 @@ const Navbar = ({ links }: Props) => {
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container className={classes.header}>
-        <Title order={3}>Find Me!</Title>
+        <Image
+          fit="contain"
+          src={"https://i.imgur.com/73zUnAh.png"}
+          width={"40%"}
+        />
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
