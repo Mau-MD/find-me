@@ -244,17 +244,17 @@ const sendEmail = (email: Email) => {
           <td style="padding:30px 50px 30px 50px; line-height:22px; text-align:inherit; background-color:#1a3b40;" height="100%" valign="top" bgcolor="#1a3b40" role="module-content">
         ${
           email.raza
-            ? `<div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8; font-size: 18px; font-family: inherit">Raza: ${email.raza}</span></div>`
+            ? `<div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8; font-size: 18px; font-family: inherit">Raza: ${email.raza}.</span></div>`
             : ``
         }
         ${
           email.color
-            ? `<div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8; font-size: 18px; font-family: inherit">Color: ${email.color}</span></div>`
+            ? `<div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8; font-size: 18px; font-family: inherit">Color: ${email.color}.</span></div>`
             : ``
         }
         ${
           email.edad
-            ? `<div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8; font-size: 18px; font-family: inherit">Edad: ${email.edad}</span></div>`
+            ? `<div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8; font-size: 18px; font-family: inherit">Edad: ${email.edad} ${email.edad === 1 ? `año` : `años`}.</span></div>`
             : ``    
         }
         ${
