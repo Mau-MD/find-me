@@ -13,6 +13,7 @@ import {
 import { PostPerdido, User } from "@prisma/client";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { trpc } from "../../utils/trpc";
 import SearchCard from "../busqueda/SearchCard";
 import GMap from "../map/Map";
