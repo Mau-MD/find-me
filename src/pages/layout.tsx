@@ -11,6 +11,8 @@ const links: {
 }[] = [
   { link: "/", label: "Home" },
   { link: "/busqueda", label: "Busqueda" },
+  { link: "/agregar", label: "Agregar" },
+  { link: "vista", label: "Vista"}
 ];
 
 const layout = ({ children }: Props) => {
