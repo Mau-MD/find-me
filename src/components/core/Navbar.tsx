@@ -155,7 +155,6 @@ const Navbar = ({ links }: Props) => {
         ) : (
           <Menu>
             <Menu.Target>
-              {" "}
               <Button variant="white">
                 <Group>
                   <Avatar
