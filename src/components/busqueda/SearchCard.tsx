@@ -81,6 +81,7 @@ const SearchCard = ({
       withBorder
       shadow={"md"}
       w="100%"
+      style={{ cursor: "pointer" }}
       onClick={() => {
         if (visto) {
           router.push(`/detalles/visto/${id}`);
