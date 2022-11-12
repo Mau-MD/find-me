@@ -39,7 +39,7 @@ const PerrosPrincipal = () => {
               dogName={post.nombrePerro}
               reward={post.recompensa}
               dateLost={format(post.fecha, "dd/MM/yyyy")}
-              image={post.imagen}
+              image={post.imagenes[0]}
               detalles={post.detalles ?? post.detallesPerro}
               visto={false}
               raza={post.raza}
