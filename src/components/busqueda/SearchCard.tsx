@@ -7,8 +7,8 @@ import {
   Stack,
   Text,
   Title,
+  Image,
 } from "@mantine/core";
-import Image from "next/image";
 import React from "react";
 
 interface Props {
@@ -16,13 +16,14 @@ interface Props {
   ownerName: string;
   reward: boolean;
   dateLost: string;
+  image: string;
 }
-const SearchCard = ({ ownerName, dogName, dateLost, reward }: Props) => {
+const SearchCard = ({ ownerName, dogName, dateLost, reward, image }: Props) => {
   return (
     <Card withBorder shadow={"md"} w="100%">
-      <Group position="apart" h="100%">
-        <Avatar />
-        <Stack w="80%">
+      <Stack h="100%">
+        <Image src={image} />
+        <Stack>
           <Stack spacing={1}>
             <Group position="apart">
               <Title order={3}>{dogName}</Title>
@@ -35,7 +36,7 @@ const SearchCard = ({ ownerName, dogName, dateLost, reward }: Props) => {
             <Button>Ver Mas</Button>
           </Group>
         </Stack>
-      </Group>
+      </Stack>
     </Card>
   );
 };
