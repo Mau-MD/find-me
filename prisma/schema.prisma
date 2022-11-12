@@ -57,25 +57,27 @@ model User {
   sessions      Session[]
   postsPerdido  PostPerdido[]
   postsVisto    PostVisto[]
+  Comentario    Comentario[]
 }
 
 model PostPerdido {
-  id          String   @id @default(cuid())
-  usuario     User     @relation(fields: [userId], references: [id])
+  id          String       @id @default(cuid())
+  usuario     User         @relation(fields: [userId], references: [id])
   userId      String
   color       String?
   detalles    String?
   raza        String
   latitud     Float
   longitud    Float
-  fecha       DateTime @default(now())
+  fecha       DateTime     @default(now())
   imagen      String
   imagenes    String[]
-  recompensa  Boolean  @default(false)
+  recompensa  Boolean      @default(false)
   edad        Int?
-  casoAbierto Boolean  @default(false)
+  casoAbierto Boolean      @default(false)
   nombrePerro String
-  telefono    String   @default("")
+  telefono    String       @default("")
+  Comentario  Comentario[]
 }
 
 model PostVisto {
@@ -95,4 +97,15 @@ model PostVisto {
   nombrePlaca   String?
   edad          Int?
   telefono      String   @default("")
+}
+
+model Comentario {
+  id               String      @id @default(cuid())
+  usuario          User        @relation(fields: [userId], references: [id])
+  userId           String
+  postPerdido      PostPerdido @relation(fields: [postId], references: [id])
+  postId           String
+  fecha            DateTime    @default(now())
+  contenido        String
+  showEmailToOwner Boolean
 }
