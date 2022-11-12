@@ -1,12 +1,12 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import { MantineProvider } from "@mantine/core";
-
+import { Container, MantineProvider, Stack, Text } from "@mantine/core";
 import { trpc } from "../utils/trpc";
-
 import "../styles/globals.css";
 import Layout from "./layout";
+import Bienvenida from "../components/mainpage/Bienvenida";
+import BannerMapa from "../components/mainpage/BannerMapa";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -23,8 +23,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         }}
       >
         <Layout>
-          hola
-          {/* <Component {...pageProps} /> */}
+          <Component {...pageProps} />
         </Layout>
       </MantineProvider>
     </SessionProvider>
