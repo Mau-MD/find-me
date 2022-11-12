@@ -9,12 +9,13 @@ import {
   Transition,
   Title,
   Image,
+  Affix,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/router";
+import LightAndDarkModeButton from "../LightDarkButton/LightDarkButton";
 
 const HEADER_HEIGHT = 60;
-
 const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
