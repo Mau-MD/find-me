@@ -157,7 +157,7 @@ const SearchCard = ({
                 </Button>
               </Group>
             ) : (
-              <Button>Ver Mas</Button>
+              <Button>Ver Más</Button>
             )}
           </Group>
         </Stack>

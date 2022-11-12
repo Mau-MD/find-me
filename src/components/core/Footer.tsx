@@ -39,10 +39,10 @@ interface FooterCenteredProps {
 
 const Footer = () => {
   const links = [
-    { label: "Contactanos", href: "" },
+    { label: "Contáctanos", href: "" },
     { label: "Soporte", href: "" },
     { label: "Donaciones", href: "" },
-    { label: "¿Quienes somos?", href: "" },
+    { label: "¿Quiénes somos?", href: "" },
   ];
   const { classes } = useStyles();
   const items = links.map((link: any) => (
@@ -65,7 +65,6 @@ const Footer = () => {
           fit="contain"
           src={"https://i.imgur.com/73zUnAh.png"}
           width={"100px"}
-          // onClick={() => router.push("/")}
           style={{ cursor: "pointer" }}
         />
 
