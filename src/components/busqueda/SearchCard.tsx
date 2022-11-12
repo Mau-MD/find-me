@@ -9,10 +9,13 @@ import {
   Title,
   Image,
   ButtonProps,
+  Paper,
 } from "@mantine/core";
 import { IconBrandFacebook } from "@tabler/icons";
-import React from "react";
 import { useRouter } from "next/router";
+import React from "react";
+import { posts } from "../../server/trpc/router/getPost";
+import { trpc } from "../../utils/trpc";
 
 export function obtenerURL() {
   var URL = "https://www.youtube.com/watch?v=CU0i9W_XkDI";
@@ -22,6 +25,7 @@ export function obtenerURL() {
 }
 
 interface Props {
+  id: string;
   dogName: string;
   ownerName: string;
   reward: boolean;
@@ -30,7 +34,8 @@ interface Props {
   detalles: string | null;
   visto: boolean;
   raza: string;
-  id: string;
+  isOwn: boolean;
+  found: boolean;
 }
 const SearchCard = ({
   id,
@@ -42,8 +47,24 @@ const SearchCard = ({
   detalles,
   visto,
   raza,
+  isOwn = false,
+  found = false,
 }: Props) => {
   const router = useRouter();
+
+  const utils = trpc.useContext();
+
+  const markAsCompleted = trpc.posts.markAsFound.useMutation({
+    onSuccess: () => {
+      utils.posts.getOwnPosts.invalidate();
+    },
+  });
+
+  const deleteMutation = trpc.posts.deletePost.useMutation({
+    onSuccess: () => {
+      utils.posts.getOwnPosts.invalidate();
+    },
+  });
 
   return (
     <Card
@@ -54,6 +75,15 @@ const SearchCard = ({
         router.push(`/detalles/${id}`);
       }}
     >
+      {found && (
+        <Card.Section>
+          <Paper
+            style={{ background: "green", textAlign: "center", color: "white" }}
+          >
+            ENCONTRADO
+          </Paper>
+        </Card.Section>
+      )}
       <Stack h="100%">
         {image && <Image src={image} height="200px" />}
         <Stack>
@@ -75,9 +105,12 @@ const SearchCard = ({
             )}
             {detalles && <Text>{detalles}</Text>}
           </Stack>
-          <Group position="apart">
+          {visto ? (
+            <Text>Visto el {dateLost}</Text>
+          ) : (
             <Text>Perdido desde {dateLost}</Text>
-            {!visto && <Text>Perdido desde {dateLost}</Text>}
+          )}
+          <Group position="apart">
             <Button
               component="a"
               target="_blank"
@@ -101,8 +134,26 @@ const SearchCard = ({
             >
               Compartir en Facebook
             </Button>
-
-            <Button>Ver Mas</Button>
+            {isOwn ? (
+              <Group>
+                <Button
+                  color="green"
+                  onClick={() => markAsCompleted.mutate({ id: id })}
+                  loading={markAsCompleted.isLoading}
+                >
+                  Marcar como encontado
+                </Button>
+                <Button
+                  color="red"
+                  onClick={() => deleteMutation.mutate({ id: id })}
+                  loading={deleteMutation.isLoading}
+                >
+                  Eliminar Publicacion
+                </Button>
+              </Group>
+            ) : (
+              <Button>Ver Mas</Button>
+            )}
           </Group>
         </Stack>
       </Stack>
