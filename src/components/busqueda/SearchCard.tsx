@@ -20,6 +20,7 @@ interface Props {
   image: string;
   detalles: string | null;
   visto: boolean;
+  raza: string;
 }
 const SearchCard = ({
   ownerName,
@@ -29,23 +30,36 @@ const SearchCard = ({
   image,
   detalles,
   visto,
+  raza,
 }: Props) => {
   return (
     <Card withBorder shadow={"md"} w="100%">
       <Stack h="100%">
-        <Image src={image} />
+        <Image src={image} height="200px" />
         <Stack>
           <Stack spacing={1}>
             <Group position="apart">
               <Title order={3}>{dogName}</Title>
-              {reward && <Badge color="green">Recompensa</Badge>}
+              <Group>
+                {reward && <Badge color="green">Recompensa</Badge>}
+                {!visto && <Badge>{raza}</Badge>}
+              </Group>
             </Group>
-            <Text color={"dimmed"}>De: {ownerName}</Text>
+            {visto ? (
+              <Group position="apart">
+                <Text color={"dimmed"}>Reportado por: {ownerName}</Text>
+                <Badge>{raza}</Badge>
+              </Group>
+            ) : (
+              <Text color={"dimmed"}>De: {ownerName}</Text>
+            )}
             {detalles && <Text>{detalles}</Text>}
           </Stack>
           <Group position="apart">
             <Text>Perdido desde {dateLost}</Text>
             <Button leftIcon={<TwitterIcon size={16} color="#00ACEE" />}>Redes Sociales</Button>
+            {!visto && <Text>Perdido desde {dateLost}</Text>}
+
             <Button>Ver Mas</Button>
           </Group>
         </Stack>

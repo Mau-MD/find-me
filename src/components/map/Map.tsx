@@ -11,11 +11,14 @@ import { Center, Loader } from "@mantine/core";
 import SearchCard from "../busqueda/SearchCard";
 import MapCard from "./MapCard";
 import { PostsPerdidoWithUser } from "../../pages/busqueda";
+import { posts } from "../../server/trpc/router/getPost";
 
 interface Props {
   posts: PostsPerdidoWithUser[];
+  visto: boolean;
+  containerClass?: string;
 }
-const GMap = ({ posts }: Props) => {
+const GMap = ({ posts, visto, containerClass }: Props) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDRbZkLZZYFiPYAJjSm6wE6k8QCs2PyDG0" || "",
   });
@@ -42,36 +45,38 @@ const GMap = ({ posts }: Props) => {
         lat: currentLocation.latitud,
         lng: currentLocation.longitud,
       }}
-      mapContainerClassName="map-container"
+      mapContainerClassName={containerClass || "map-container"}
     >
-      {posts.map((post) => (
-        <MarkerClicked post={post} key={post.id} />
-        // <MarkerF
-        //   position={{
-        //     lat: post.latitud,
-        //     lng: post.longitud,
-        //   }}
-        //   onClick={() => setClicked(!clicked)}
-        // />
-        // {clicked && (
-        //   <InfoWindowF
-        //     position={{
-        //       lat: currentLocation.coords.latitude + 0.001,
-        //       lng: currentLocation.coords.longitude,
-        //     }}
-        //   >
-        //     <MapCard />
-        //   </InfoWindowF>
-        // )}
-      ))}
+      {posts &&
+        posts.map((post) => (
+          <MarkerClicked post={post} key={post.id} visto={visto} />
+          // <MarkerF
+          //   position={{
+          //     lat: post.latitud,
+          //     lng: post.longitud,
+          //   }}
+          //   onClick={() => setClicked(!clicked)}
+          // />
+          // {clicked && (
+          //   <InfoWindowF
+          //     position={{
+          //       lat: currentLocation.coords.latitude + 0.001,
+          //       lng: currentLocation.coords.longitude,
+          //     }}
+          //   >
+          //     <MapCard />
+          //   </InfoWindowF>
+          // )}
+        ))}
     </GoogleMap>
   );
 };
 
 interface MarkerProps {
   post: PostsPerdidoWithUser;
+  visto: boolean;
 }
-const MarkerClicked = ({ post }: MarkerProps) => {
+const MarkerClicked = ({ post, visto }: MarkerProps) => {
   const [clicked, setClicked] = useState(false);
   return (
     <>
@@ -79,6 +84,11 @@ const MarkerClicked = ({ post }: MarkerProps) => {
         position={{
           lat: post.latitud,
           lng: post.longitud,
+        }}
+        options={{
+          icon: visto
+            ? "https://i.imgur.com/cXq32r2.png"
+            : "https://i.imgur.com/UJcpuoX.png",
         }}
         onClick={() => setClicked(!clicked)}
       />
@@ -92,6 +102,18 @@ const MarkerClicked = ({ post }: MarkerProps) => {
           >
             <MapCard post={post} />
           </InfoWindowF>
+          <CircleF
+            radius={500}
+            options={{
+              strokeColor: "blue",
+              fillColor: "blue",
+              fillOpacity: 0.1,
+            }}
+            center={{
+              lat: post.latitud,
+              lng: post.longitud,
+            }}
+          />
           <CircleF
             radius={1000}
             options={{
