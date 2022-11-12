@@ -3,15 +3,15 @@ import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 
 
-export const createPost = router({
+export const createPostRouter = router({
   PostVisto: publicProcedure
     .input(z.object({
       userId: z.string(),
-      color: z.string(),
+      color: z.custom(),
       detalles: z.string().optional(),
       raza: z.string(),
       latitud: z.number(),
-      altitud: z.number(),
+      longitud: z.number(),
       imagen: z.string(),
       rescatado: z.boolean(),
       detallesPlaca: z.string().optional(),
@@ -22,10 +22,10 @@ export const createPost = router({
         data: {
           userId: input.userId,
           color: input.color,
-          detalles: input.detalles,
+          detallesPerro: input.detalles,
           raza: input.raza,
           latitud: input.latitud,
-          altitud: input.altitud,
+          longitud: input.longitud,
           imagen: input.imagen,
           rescatado: input.rescatado,
           detallesPlaca: input.detallesPlaca,
@@ -37,11 +37,11 @@ export const createPost = router({
   PostPerdido: publicProcedure
     .input(z.object({
       userId: z.string(),
-      color: z.string(),
+      color: z.custom(),
       detalles: z.string().optional(),
       raza: z.string(),
       latitud: z.number(),
-      altitud: z.number(),
+      longitud: z.number(),
       imagen: z.string(),
       recompensa: z.boolean(),
       edad: z.number().int().optional()
@@ -54,7 +54,7 @@ export const createPost = router({
           detalles: input.detalles,
           raza: input.raza,
           latitud: input.latitud,
-          altitud: input.altitud,
+          longitud: input.longitud,
           imagen: input.imagen,
           recompensa: input.recompensa,
           edad: input.edad
