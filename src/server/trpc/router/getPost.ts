@@ -8,6 +8,9 @@ export const posts = router({
       z.object({
         category: z.enum(["perdidos", "vistos"]),
         raza: z.string(),
+        name: z.string().optional(),
+        color: z.string().optional(),
+        fecha: z.date().optional(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -15,6 +18,8 @@ export const posts = router({
         return await ctx.prisma.postPerdido.findMany({
           where: {
             raza: { contains: input.raza },
+            color: { contains: input.color },
+            nombrePerro: { contains: input.name, mode: "insensitive" },
           },
           orderBy: {
             fecha: "desc",
@@ -27,6 +32,8 @@ export const posts = router({
       return await ctx.prisma.postVisto.findMany({
         where: {
           raza: { contains: input.raza },
+          color: { contains: input.color },
+          nombrePlaca: { contains: input.name },
         },
         orderBy: {
           fecha: "desc",

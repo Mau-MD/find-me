@@ -120,7 +120,7 @@ const id = () => {
                   dateLost={format(post.fecha, "dd/MM/yyyy")}
                   image={post.imagenes[0] || ""}
                   detalles={post.detalles ?? post.detallesPerro}
-                  visto={visto}
+                  visto={true}
                   raza={post.raza}
                   found={post.casoAbierto}
                   id={post.id}

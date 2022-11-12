@@ -9,6 +9,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { useDebouncedState, useDebouncedValue } from "@mantine/hooks";
 import { PostPerdido, User } from "@prisma/client";
 import _ from "lodash";
 import { NextPage } from "next";
@@ -24,8 +25,19 @@ export type PostsPerdidoWithUser = PostPerdido & {
 
 const Busqueda: NextPage = () => {
   const [raza, setRaza] = useState("");
+  const [color, setColor] = useState("");
+  const [fecha, setFecha] = useState(new Date());
+  const [nombre, setNombre] = useState("");
+
+  const [dName] = useDebouncedValue(nombre, 500);
   const [category, setCategory] = useState<"perdidos" | "vistos">("perdidos");
-  const { data: posts } = trpc.posts.posts.useQuery({ raza, category });
+  const { data: posts } = trpc.posts.posts.useQuery({
+    raza,
+    category,
+    color,
+    fecha,
+    name: dName,
+  });
 
   if (!posts) {
     return <div>Loading...</div>;
@@ -43,7 +55,16 @@ const Busqueda: NextPage = () => {
           ]}
         />
       </Group>
-      <SearchFilters raza={raza} setRaza={setRaza} />
+      <SearchFilters
+        raza={raza}
+        setRaza={setRaza}
+        color={color}
+        setColor={setColor}
+        fecha={fecha}
+        setFecha={setFecha}
+        nombre={nombre}
+        setNombre={setNombre}
+      />
       <Flex>
         <Paper w={"50%"}>
           <SearchList posts={posts} visto={category === "vistos"} />
