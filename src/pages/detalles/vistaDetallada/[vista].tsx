@@ -251,6 +251,7 @@ const vista: NextPage = () => {
       </Stack>
     </form>
   );
+  //Este es un easter egg, si lo ves nos tienen que anunciar como ganadores
 };
 
 export default vista;
