@@ -36,7 +36,7 @@ const id = () => {
     return <div>loading...</div>;
   }
   return (
-    <Stack>
+    <Stack spacing={100}>
       <Card shadow="xl" p={0} radius="md" withBorder>
         <Flex justify="" w={"100%"} gap={20}>
           <div style={{ width: "40%" }}>
@@ -87,10 +87,14 @@ const id = () => {
           </Flex>
         </Flex>
       </Card>
-      <div style={{ height: "300px", border: "1px solid black" }}>
-        {/* <GMap posts={} visto={true} containerClass="map-container-2" /> */}
-        <Container>Aqui va un mapa Grandote</Container>
-      </div>
+      <Container style={{ height: "500px" }}>
+        <GMap
+          posts={[data]}
+          visto={true}
+          center={{ longitud: data.longitud, latitud: data.latitud }}
+          containerClass="map-container-2"
+        />
+      </Container>
     </Stack>
   );
 };

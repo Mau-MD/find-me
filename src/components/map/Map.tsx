@@ -12,14 +12,21 @@ import SearchCard from "../busqueda/SearchCard";
 import MapCard from "./MapCard";
 import { PostsPerdidoWithUser } from "../../pages/busqueda";
 import { posts } from "../../server/trpc/router/getPost";
-import { differenceInHours } from 'date-fns'
+import { differenceInHours } from "date-fns";
+import { IconWorldLatitude } from "@tabler/icons";
 
 interface Props {
   posts: PostsPerdidoWithUser[];
   visto: boolean;
   containerClass?: string;
+  center?: { latitud: number; longitud: number };
 }
-const GMap = ({ posts, visto, containerClass }: Props) => {
+const GMap = ({
+  posts,
+  visto,
+  containerClass,
+  center = { latitud: 31.87326329663515, longitud: -116.6459030853411 },
+}: Props) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDRbZkLZZYFiPYAJjSm6wE6k8QCs2PyDG0" || "",
   });
@@ -27,7 +34,7 @@ const GMap = ({ posts, visto, containerClass }: Props) => {
   const [currentLocation, setCurrentLocation] = useState<{
     latitud: number;
     longitud: number;
-  }>({ latitud: 31.87326329663515, longitud: -116.6459030853411 });
+  }>(center);
 
   const [clicked, setClicked] = useState(false);
 
@@ -78,34 +85,133 @@ interface MarkerProps {
   visto: boolean;
 }
 const MarkerClicked = ({ post, visto }: MarkerProps) => {
-  const [radio, setRadio] = useState(50)
+  const [radio, setRadio] = useState(50);
 
   useEffect(() => {
-    const thirytMins = ["affenpinscher", "akita", "brabancon", "bulldog", "chihuahua", "collie", "cotondetulear", "dachshund", "entlebucher", "frise", "greyhound", "labrador", "leonberg", "lhasa", "maltese", "papillon", "pekinese", "schnauzer", "shihtzu", "terrier"]
-    const oneHour = ["affrican", "basenji", "borzoi", "bouvier", "bullterrier", "chow", "clumber", "cockapoo", "coonhound", "corgi", "dane", "deerhound", "dhole", "eskimo", "finnish", "germanshepherd", "havanese", "hound", "keeshond", "kelpie", "kuvasz", "labradoodle", "mastiff", "mexicanhairless", "pinscher", "pitbull", "poodle", "pug", "puggle", "redbone", "ridgeback", "rottweiler", "segugio", "setter", "spaniel", "springer", "waterdog", "whippet"]
-    const twoHours = ["airedale", "appenzell", "australian", "beagle", "bluetick", "boxer", "briard", "cattledog", "dalmatian", "dingo", "doberman", "elkhound", "golden", "groenendael", "husky", "komondor", "malamute", "malinois", "mix", "mountain", "newfoundland", "otterhound", "ovcharka", "pembroke", "pointer", "pomeranian", "pyrenees", "retriever", "saluki", "samoyed", "schipperke", "sharpei", "sheepdog", "shiba", "stbernard", "tervuren", "vizsla", "weimaraner", "wolfhound"]
-  
+    const thirytMins = [
+      "affenpinscher",
+      "akita",
+      "brabancon",
+      "bulldog",
+      "chihuahua",
+      "collie",
+      "cotondetulear",
+      "dachshund",
+      "entlebucher",
+      "frise",
+      "greyhound",
+      "labrador",
+      "leonberg",
+      "lhasa",
+      "maltese",
+      "papillon",
+      "pekinese",
+      "schnauzer",
+      "shihtzu",
+      "terrier",
+    ];
+    const oneHour = [
+      "affrican",
+      "basenji",
+      "borzoi",
+      "bouvier",
+      "bullterrier",
+      "chow",
+      "clumber",
+      "cockapoo",
+      "coonhound",
+      "corgi",
+      "dane",
+      "deerhound",
+      "dhole",
+      "eskimo",
+      "finnish",
+      "germanshepherd",
+      "havanese",
+      "hound",
+      "keeshond",
+      "kelpie",
+      "kuvasz",
+      "labradoodle",
+      "mastiff",
+      "mexicanhairless",
+      "pinscher",
+      "pitbull",
+      "poodle",
+      "pug",
+      "puggle",
+      "redbone",
+      "ridgeback",
+      "rottweiler",
+      "segugio",
+      "setter",
+      "spaniel",
+      "springer",
+      "waterdog",
+      "whippet",
+    ];
+    const twoHours = [
+      "airedale",
+      "appenzell",
+      "australian",
+      "beagle",
+      "bluetick",
+      "boxer",
+      "briard",
+      "cattledog",
+      "dalmatian",
+      "dingo",
+      "doberman",
+      "elkhound",
+      "golden",
+      "groenendael",
+      "husky",
+      "komondor",
+      "malamute",
+      "malinois",
+      "mix",
+      "mountain",
+      "newfoundland",
+      "otterhound",
+      "ovcharka",
+      "pembroke",
+      "pointer",
+      "pomeranian",
+      "pyrenees",
+      "retriever",
+      "saluki",
+      "samoyed",
+      "schipperke",
+      "sharpei",
+      "sheepdog",
+      "shiba",
+      "stbernard",
+      "tervuren",
+      "vizsla",
+      "weimaraner",
+      "wolfhound",
+    ];
+
     var strength = 1;
-  
+
     if (post.raza in thirytMins) {
-      var strength = 0.5*5;
+      var strength = 0.5 * 5;
     } else if (post.raza in oneHour) {
-      var strength = 1*7;
+      var strength = 1 * 7;
     } else if (post.raza in twoHours) {
-      var strength = 2*10;
+      var strength = 2 * 10;
     }
     var now = new Date();
     //var differenceInHours = require('date-fns/differenceInHours')
     //differenceInHours(now, post.fecha)
-      var fRadio = strength*differenceInHours(now, post.fecha)/2
-      if (fRadio > 500) {
-        fRadio = 500;
-      }
-      console.log(differenceInHours(now, post.fecha))
-      console.log(fRadio)
-      setRadio(fRadio * 100)
-  
-  },[])
+    var fRadio = (strength * differenceInHours(now, post.fecha)) / 2;
+    if (fRadio > 500) {
+      fRadio = 500;
+    }
+    console.log(differenceInHours(now, post.fecha));
+    console.log(fRadio);
+    setRadio(fRadio * 100);
+  }, []);
 
   const [clicked, setClicked] = useState(false);
 
@@ -146,7 +252,7 @@ const MarkerClicked = ({ post, visto }: MarkerProps) => {
             }}
           />
           <CircleF
-            radius={radio/2}
+            radius={radio / 2}
             options={{
               strokeColor: "blue",
               fillColor: "blue",
