@@ -56,7 +56,7 @@ function Steps({ setOpened }: any) {
           <Stack justify={"center"} align={"center"}>
             <Title>Segundo pasos:</Title>
             <Text>
-              Paso dos: Solo si el perro es docil acercate e intentar rescatarlo
+              Paso dos: Solo si el perro es dócil acercate e intenta rescatarlo
             </Text>
             <Image
               src={"https://i.imgur.com/icdMBAd.png"}
@@ -115,10 +115,10 @@ function Steps({ setOpened }: any) {
 
       <Group position="center" mt="xl">
         <Button variant="default" onClick={prevStep}>
-          Back
+          Atras
         </Button>
         <Button onClick={nextStep} color="orange">
-          Next step
+          Siguiente paso
         </Button>
       </Group>
     </>

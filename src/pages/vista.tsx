@@ -169,7 +169,7 @@ const vista: NextPage = () => {
         />
         <Select
           label="Raza"
-          placeholder="Pick one"
+          placeholder="Elige una"
           {...form.getInputProps("raza")}
           data={breeds ? breeds : []}
           style={{ width: "50%" }}
@@ -211,10 +211,10 @@ const vista: NextPage = () => {
 
           <div>
             <Text size="xl" inline>
-              Drag images here or click to select files
+              Jala imágenes, o haz click para seleccionar archivos
             </Text>
             <Text size="sm" color="dimmed" inline mt={7}>
-              Attach as many files as you like, each file should not exceed 5mb
+              Adjunta tantos archivos como gustes, cada archivo debe ser menor a 5mb
             </Text>
           </div>
         </Group>

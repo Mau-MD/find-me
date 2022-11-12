@@ -170,7 +170,7 @@ const Navbar = ({ links }: Props) => {
 
         {!data ? (
           <Button size="sm" variant="outline" onClick={() => signIn("google")}>
-            Login
+            Iniciar Sesión
           </Button>
         ) : (
           <Menu>
@@ -191,7 +191,7 @@ const Navbar = ({ links }: Props) => {
                 Mis publicaciones
               </Menu.Item>
               <Menu.Item color="red" onClick={() => signOut()}>
-                Cerrar Sesion
+                Cerrar Sesión
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
