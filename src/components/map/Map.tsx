@@ -75,6 +75,14 @@ interface MarkerProps {
   visto: boolean;
 }
 const MarkerClicked = ({ post, visto }: MarkerProps) => {
+  useEffect(() => {
+    const strength = () => {
+      if post.raza
+    }
+    const horaActual = new Date();
+    const tiempo = horaActual - post.fecha;
+  })
+  const raza = post.raza
   const [clicked, setClicked] = useState(false);
   return (
     <>
