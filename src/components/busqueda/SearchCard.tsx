@@ -17,8 +17,18 @@ interface Props {
   reward: boolean;
   dateLost: string;
   image: string;
+  detalles: string | null;
+  visto: boolean;
 }
-const SearchCard = ({ ownerName, dogName, dateLost, reward, image }: Props) => {
+const SearchCard = ({
+  ownerName,
+  dogName,
+  dateLost,
+  reward,
+  image,
+  detalles,
+  visto,
+}: Props) => {
   return (
     <Card withBorder shadow={"md"} w="100%">
       <Stack h="100%">
@@ -30,6 +40,7 @@ const SearchCard = ({ ownerName, dogName, dateLost, reward, image }: Props) => {
               {reward && <Badge color="green">Recompensa</Badge>}
             </Group>
             <Text color={"dimmed"}>De: {ownerName}</Text>
+            {detalles && <Text>{detalles}</Text>}
           </Stack>
           <Group position="apart">
             <Text>Perdido desde {dateLost}</Text>

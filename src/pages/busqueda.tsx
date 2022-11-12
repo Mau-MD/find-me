@@ -4,11 +4,13 @@ import {
   Group,
   Header,
   Paper,
+  SegmentedControl,
   Stack,
   TextInput,
   Title,
 } from "@mantine/core";
 import { PostPerdido, User } from "@prisma/client";
+import _ from "lodash";
 import { NextPage } from "next";
 import { useState } from "react";
 import SearchFilters from "../components/busqueda/SearchFilters";
@@ -22,17 +24,28 @@ export type PostsPerdidoWithUser = PostPerdido & {
 
 const Busqueda: NextPage = () => {
   const [raza, setRaza] = useState("");
-  const { data: posts } = trpc.posts.postsPerdidos.useQuery({ raza });
+  const [category, setCategory] = useState<"perdidos" | "vistos">("perdidos");
+  const { data: posts } = trpc.posts.posts.useQuery({ raza, category });
 
   if (!posts) {
     return <div>Loading...</div>;
   }
   return (
     <Stack>
-      <Title>🐕 Perros Perdidos</Title>
+      <Group position={"apart"}>
+        <Title>🐕 Perros {_.capitalize(category)}</Title>
+        <SegmentedControl
+          onChange={(val) => setCategory(val as "perdidos" | "vistos")}
+          value={category}
+          data={[
+            { label: "Perdidos", value: "perdidos" },
+            { label: "Vistos", value: "vistos" },
+          ]}
+        />
+      </Group>
       <SearchFilters raza={raza} setRaza={setRaza} />
       <Flex>
-        <Paper w={"40%"}>
+        <Paper w={"50%"}>
           <SearchList posts={posts} />
         </Paper>
         <Paper pos={"relative"} pl={"lg"}>

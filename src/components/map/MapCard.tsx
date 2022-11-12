@@ -16,16 +16,19 @@ interface Props {
 }
 const MapCard = ({ post }: Props) => {
   return (
-    <Stack>
+    <Stack spacing={"sm"}>
       <Card.Section>
         <Image src={post.imagen} height={100} alt="Norway" />{" "}
       </Card.Section>
       <Group>
-        <Title order={4}>Federico</Title>
+        <Title order={4}>{post.nombrePerro}</Title>
         {post.recompensa && <Badge color="green">Recompensa</Badge>}
       </Group>
-      <Text>Perdido desde {format(post.fecha, "dd/MM/yy")}</Text>
-      <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+      <Stack spacing={0}>
+        <Text color="dimmed">De: {post.usuario.name}</Text>
+        <Text>Perdido desde {format(post.fecha, "dd/MM/yy")}</Text>
+      </Stack>
+      <Button variant="light" color="blue" fullWidth radius="md">
         Ver Mas
       </Button>
     </Stack>

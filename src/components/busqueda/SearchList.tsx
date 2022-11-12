@@ -19,8 +19,9 @@ import { format } from "date-fns";
 
 interface Props {
   posts: PostsPerdidoWithUser[];
+  visto: boolean;
 }
-const SearchList = ({ posts }: Props) => {
+const SearchList = ({ posts, visto }: Props) => {
   return (
     <ScrollArea style={{ height: "50vh" }}>
       <Stack style={{ overflowY: "scroll" }}>
@@ -28,10 +29,11 @@ const SearchList = ({ posts }: Props) => {
           <SearchCard
             key={post.id}
             ownerName={post.usuario.name || ""}
-            dogName="Feredico"
+            dogName={post.nombrePerro}
             reward={post.recompensa}
             dateLost={format(post.fecha, "dd/MM/yyyy")}
             image={post.imagen}
+            detalles={post.detalles}
           />
         ))}
       </Stack>
