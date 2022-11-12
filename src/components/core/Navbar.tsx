@@ -155,7 +155,7 @@ const Navbar = ({ links }: Props) => {
         ) : (
           <Menu>
             <Menu.Target>
-              <Button variant="white">
+              <Button variant="subtle">
                 <Group>
                   <Avatar
                     src={data.user.image}
