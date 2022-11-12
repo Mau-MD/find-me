@@ -76,6 +76,7 @@ model PostPerdido {
   casoAbierto Boolean  @default(true)
   nombrePerro String
   telefono    String   @default("")
+  
 }
 
 model PostVisto {

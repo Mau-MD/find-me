@@ -34,6 +34,7 @@ const PerrosPrincipal = () => {
         {filteredPosts &&
           filteredPosts.map((post) => (
             <SearchCard
+              id={post.id}
               key={post.id}
               ownerName={post.usuario.name || ""}
               dogName={post.nombrePerro}

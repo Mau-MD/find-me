@@ -10,11 +10,11 @@ import {
   Image,
   ButtonProps,
 } from "@mantine/core";
-import { IconBrandFacebook } from '@tabler/icons';
+import { IconBrandFacebook } from "@tabler/icons";
 import React from "react";
 import { useRouter } from "next/router";
 
-export function obtenerURL(){
+export function obtenerURL() {
   var URL = "https://www.youtube.com/watch?v=CU0i9W_XkDI";
   var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
   var final = facebook.concat(URL.toString());
@@ -30,8 +30,10 @@ interface Props {
   detalles: string | null;
   visto: boolean;
   raza: string;
+  id: string;
 }
 const SearchCard = ({
+  id,
   ownerName,
   dogName,
   dateLost,
@@ -49,7 +51,7 @@ const SearchCard = ({
       shadow={"md"}
       w="100%"
       onClick={() => {
-        router.push("/PerroPerdidoPerfil");
+        router.push(`/detalles/${id}`);
       }}
     >
       <Stack h="100%">
@@ -84,11 +86,11 @@ const SearchCard = ({
               leftIcon={<IconBrandFacebook size={20} />}
               styles={(theme) => ({
                 root: {
-                  backgroundColor: '#00acee',
+                  backgroundColor: "#00acee",
                   border: 0,
                   height: 35,
-                  '&:hover': {
-                    backgroundColor: theme.fn.darken('#00acee', 0.05),
+                  "&:hover": {
+                    backgroundColor: theme.fn.darken("#00acee", 0.05),
                   },
                 },
 
@@ -99,7 +101,7 @@ const SearchCard = ({
             >
               Compartir en Facebook
             </Button>
-            
+
             <Button>Ver Mas</Button>
           </Group>
         </Stack>

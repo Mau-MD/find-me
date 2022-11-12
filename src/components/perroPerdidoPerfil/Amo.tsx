@@ -1,5 +1,5 @@
 import { Card, Stack, Title, Text } from "@mantine/core";
-const Amo = () => {
+const Amo = ({ nombre, telefono }: any) => {
   return (
     <Stack align={"end"} spacing={5}>
       <svg
@@ -17,8 +17,8 @@ const Amo = () => {
         <circle cx="12" cy="7" r="4" />
         <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
       </svg>
-      <Text color={"dimmed"}>Juan Perez</Text>
-      <Text color={"dimmed"}>Numero de telefono</Text>
+      <Text color={"dimmed"}>{nombre}</Text>
+      <Text color={"dimmed"}>{telefono}</Text>
     </Stack>
   );
 };

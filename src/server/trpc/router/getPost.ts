@@ -56,6 +56,9 @@ export const posts = router({
         where: {
           id: input.id,
         },
+        include: {
+          usuario: true,
+        },
       });
     }),
 });
