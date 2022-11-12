@@ -48,7 +48,7 @@ const id = () => {
           <Flex p={10} pr={40} justify={"space-between"} w={"60%"}>
             <Stack maw={400} justify={"center"}>
               <Stack spacing={6}>
-                <Title>{data?.nombrePlaca} 🐾</Title>
+                <Title>👀{data?.nombrePlaca} 🐾</Title>
                 <Flex gap={10} align="center">
                   <Text color={"gray"}>{format(data?.fecha, "dd/MM/yy")}</Text>
                   {!visto && <Badge color="blue">{raza}</Badge>}
@@ -60,7 +60,7 @@ const id = () => {
               </Text>
               <Text weight={500}>Año/s: {data?.edad}</Text>
 
-              <Text align="justify">{data?.detallesPerro}</Text>
+              <Text align="justify">Detalles: {data?.detallesPerro}</Text>
               <Title order={2}></Title>
             </Stack>
             <Stack justify={"space-between"} pt={10} pb={30}>
