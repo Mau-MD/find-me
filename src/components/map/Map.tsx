@@ -4,8 +4,11 @@ import {
   useLoadScript,
   Marker,
   MarkerF,
+  InfoWindowF,
 } from "@react-google-maps/api";
-import { Loader } from "@mantine/core";
+import { Center, Loader } from "@mantine/core";
+import SearchCard from "../busqueda/SearchCard";
+import MapCard from "./MapCard";
 
 const GMap = () => {
   const { isLoaded } = useLoadScript({
@@ -15,12 +18,26 @@ const GMap = () => {
   const [currentLocation, setCurrentLocation] =
     useState<GeolocationPosition | null>(null);
 
+  const [clicked, setClicked] = useState(false);
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => setCurrentLocation(pos));
   }, []);
 
-  if (!isLoaded || !currentLocation) {
-    return <Loader />;
+  if (!isLoaded) {
+    return (
+      <Center w={"100%"}>
+        <Loader />
+      </Center>
+    );
+  }
+
+  if (!currentLocation) {
+    return (
+      <Center w={"100%"} color="orange">
+        <Loader />
+      </Center>
+    );
   }
 
   return (
@@ -37,8 +54,25 @@ const GMap = () => {
           lat: currentLocation.coords.latitude,
           lng: currentLocation.coords.longitude,
         }}
-        label="hola"
+        onClick={() => setClicked(!clicked)}
       />
+      {clicked && (
+        <InfoWindowF
+          position={{
+            lat: currentLocation.coords.latitude + 0.001,
+            lng: currentLocation.coords.longitude,
+          }}
+        >
+          <MapCard />
+        </InfoWindowF>
+      )}
+      {/* <MarkerF
+        position={{
+          lat: currentLocation.coords.latitude,
+          lng: currentLocation.coords.longitude,
+        }}
+        label="hola"
+      /> */}
     </GoogleMap>
   );
 };
