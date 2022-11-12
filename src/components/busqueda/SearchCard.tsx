@@ -58,7 +58,7 @@ const SearchCard = ({
 
   const utils = trpc.useContext();
    function obtenerURL(id: string){
-    var URL = `http://localhost:3000/detalles/${id}`;
+    var URL = `https://find-me-phi.vercel.app/detalles/${id}`;
     var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
     var final = facebook.concat(URL.toString());
     return final
