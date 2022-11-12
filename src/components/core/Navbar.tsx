@@ -18,6 +18,7 @@ const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
     zIndex: 1,
+    marginBottom: 0,
   },
 
   dropdown: {
@@ -122,7 +123,7 @@ const Navbar = ({ links }: Props) => {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
+    <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container className={classes.header}>
         <Title order={3}>Find Me!</Title>
         <Group spacing={5} className={classes.links}>
