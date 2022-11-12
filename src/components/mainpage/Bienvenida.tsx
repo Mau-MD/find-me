@@ -7,23 +7,30 @@ import {
   Text,
   Center,
   Title,
+  Paper,
 } from "@mantine/core";
 const Bienvenida = () => {
   return (
     <Stack style={{ width: "100%" }}>
       <Center>
-        <Image
-          src={
-            "https://4pawsins.com/wp-content/uploads/2017/02/FAQs-short-banner.jpg"
-          }
-          style={{ width: "20000px", marginTop: "-80px" }}
-        />
+        <div style={{ width: "2000px" }}>
+          <Image
+            src={
+              "https://4pawsins.com/wp-content/uploads/2017/02/FAQs-short-banner.jpg"
+            }
+            style={{
+              marginTop: "-100px",
+            }}
+          />
+        </div>
       </Center>
-      <Container>
-        <Title align="center">
-          Ayúdanos a encontrar el perro de alguien lo antes posible 🐕
-        </Title>
-      </Container>
+      <Center mt={20}>
+        <Stack>
+          <Title align="center">
+            Ayúdanos a encontrar el perro de alguien lo antes posible 🐕
+          </Title>
+        </Stack>
+      </Center>
     </Stack>
   );
 };
