@@ -8,8 +8,17 @@ import {
   Text,
   Title,
   Image,
+  ButtonProps,
 } from "@mantine/core";
+import { IconBrandFacebook } from '@tabler/icons';
 import React from "react";
+
+export function obtenerURL(){
+  var URL = "https://www.youtube.com/watch?v=CU0i9W_XkDI";
+  var facebook = "https://www.facebook.com/sharer/sharer.php?u=";
+  var final = facebook.concat(URL.toString());
+  return final;
+}
 
 interface Props {
   dogName: string;
@@ -55,8 +64,32 @@ const SearchCard = ({
             {detalles && <Text>{detalles}</Text>}
           </Stack>
           <Group position="apart">
+            <Text>Perdido desde {dateLost}</Text>
             {!visto && <Text>Perdido desde {dateLost}</Text>}
+            <Button
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={obtenerURL()}
+              leftIcon={<IconBrandFacebook size={20} />}
+              styles={(theme) => ({
+                root: {
+                  backgroundColor: '#00acee',
+                  border: 0,
+                  height: 35,
+                  '&:hover': {
+                    backgroundColor: theme.fn.darken('#00acee', 0.05),
+                  },
+                },
 
+                leftIcon: {
+                  marginRight: 5,
+                },
+              })}
+            >
+              Compartir en Facebook
+            </Button>
+            
             <Button>Ver Mas</Button>
           </Group>
         </Stack>
