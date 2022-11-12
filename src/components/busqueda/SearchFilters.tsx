@@ -18,6 +18,7 @@ const SearchFilters = ({ raza, setRaza }: Props) => {
   const { data: breeds } = useQuery(["breeds"], async () => {
     const res = await axios.get("https://dog.ceo/api/breeds/list/all ");
     const breedArray = Object.keys(res.data.message);
+    console.log(breedArray);
     return [
       { value: "", label: " " },
       ...breedArray.map((breed) => {
