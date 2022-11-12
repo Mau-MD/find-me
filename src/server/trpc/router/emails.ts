@@ -6,10 +6,15 @@ import { sendEmail } from "../../twilio/sendEmail"
 export const emailRouter = router({
   Send: publicProcedure
     .input(z.object({
+      from_mail: z.string(),
       to_mail: z.string(),
-      from_mail: z.string()
+      raza: z.string(),
+      imagen: z.string(),
+      color: z.string().optional(),
+      detalles: z.string().optional(),
+      edad: z.number().int().optional()
     }))
     .mutation(({ input }) => {
-      sendEmail(input.to_mail, input.from_mail)
+      sendEmail({ ...input })
     })
 });
