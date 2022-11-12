@@ -125,6 +125,9 @@ const Navbar = ({ links }: Props) => {
 
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
+      <Affix position={{ top: 15, left: 30 }}>
+        <LightAndDarkModeButton />
+      </Affix>
       <Container className={classes.header}>
         <Image
           fit="contain"
