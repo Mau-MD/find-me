@@ -9,6 +9,7 @@ import {
   Title,
   Image,
 } from "@mantine/core";
+import { GithubIcon, DiscordIcon, TwitterIcon } from '@mantine/ds';
 import React from "react";
 
 interface Props {
@@ -44,6 +45,7 @@ const SearchCard = ({
           </Stack>
           <Group position="apart">
             <Text>Perdido desde {dateLost}</Text>
+            <Button leftIcon={<TwitterIcon size={16} color="#00ACEE" />}>Redes Sociales</Button>
             <Button>Ver Mas</Button>
           </Group>
         </Stack>
