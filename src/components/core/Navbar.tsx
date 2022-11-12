@@ -125,7 +125,7 @@ const Navbar = ({ links }: Props) => {
 
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
-      <Container className={classes.header}>
+      <Container className={classes.header} size="xl">
         <Title order={3}>Find Me!</Title>
         <Group spacing={5} className={classes.links}>
           {items}

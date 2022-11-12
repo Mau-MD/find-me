@@ -2,23 +2,40 @@ import { z } from "zod";
 
 import { router, publicProcedure } from "../trpc";
 
-
-export const getPost = router({
-  PostsVistos: publicProcedure
-    .query(({ ctx }) => {
+export const posts = router({
+  postsVistos: publicProcedure
+    .input(
+      z.object({
+        raza: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
       return ctx.prisma.postVisto.findMany({
+        where: {
+          raza: input.raza,
+        },
         orderBy: {
-          fecha: 'desc'
-        }
+          fecha: "desc",
+        },
+        include: {
+          usuario: true,
+        },
       });
     }),
 
-  PostsPerdidos: publicProcedure
-    .query(({ ctx }) => {
+  postsPerdidos: publicProcedure
+    .input(z.object({ raza: z.string() }))
+    .query(({ ctx, input }) => {
       return ctx.prisma.postPerdido.findMany({
+        where: {
+          raza: { contains: input.raza },
+        },
         orderBy: {
-          fecha: 'desc'
-        }
+          fecha: "desc",
+        },
+        include: {
+          usuario: true,
+        },
       });
-    })
+    }),
 });
