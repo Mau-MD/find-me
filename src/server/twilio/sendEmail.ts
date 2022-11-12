@@ -272,6 +272,11 @@ const sendEmail = (email: Email) => {
           </td>
         </tr>
       </tbody>
+      <tbody>
+        <tr>
+          <td style="padding:40px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="color: #1a3b40; font-size: 18px">¡Ayúdanos a localizarlo!</span></div>
+        </tr>
+      </tbody>
     </html>
     `
   };
