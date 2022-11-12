@@ -11,6 +11,7 @@ import {
   ButtonProps,
   Paper,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { IconBrandFacebook } from "@tabler/icons";
 import { useRouter } from "next/router";
 import React from "react";
@@ -55,6 +56,7 @@ const SearchCard = ({
   found = false,
 }: Props) => {
   const router = useRouter();
+  const matches = useMediaQuery("(max-width: 768px)");
 
   const utils = trpc.useContext();
   function obtenerURL(id: string) {
@@ -127,6 +129,7 @@ const SearchCard = ({
           )}
           <Group position="apart">
             <Button
+              fullWidth={matches}
               component="a"
               target="_blank"
               rel="noopener noreferrer"
@@ -156,6 +159,7 @@ const SearchCard = ({
                   disabled={found}
                   onClick={() => markAsCompleted.mutate({ id: id })}
                   loading={markAsCompleted.isLoading}
+                  fullWidth={matches}
                 >
                   Marcar como encontado
                 </Button>
@@ -163,12 +167,13 @@ const SearchCard = ({
                   color="red"
                   onClick={() => deleteMutation.mutate({ id: id })}
                   loading={deleteMutation.isLoading}
+                  fullWidth={matches}
                 >
                   Eliminar Publicacion
                 </Button>
               </Group>
             ) : (
-              <Button>Ver Más</Button>
+              <Button fullWidth={matches}>Ver Más</Button>
             )}
           </Group>
         </Stack>
