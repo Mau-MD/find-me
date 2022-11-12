@@ -3,8 +3,9 @@ import { authRouter } from "./auth";
 import { exampleRouter } from "./example";
 import { createPostRouter } from "./createPost";
 import { updateRouter } from "./updatePost";
-import { emailRouter } from "./emails"
+import { emailRouter } from "./emails";
 import { posts } from "./getPost";
+import { suggestions } from "./suggestions";
 
 export const appRouter = router({
   example: exampleRouter,
@@ -12,7 +13,8 @@ export const appRouter = router({
   createPost: createPostRouter,
   updatePost: updateRouter,
   posts: posts,
-  emails: emailRouter
+  emails: emailRouter,
+  suggestions: suggestions,
 });
 
 // export type definition of API

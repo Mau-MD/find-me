@@ -33,9 +33,20 @@ const id = () => {
 
   const { id } = router.query;
   const data = trpc.posts.singlePost.useQuery({ id }).data;
+  const { data: suggested } = trpc.suggestions.getSuggestions.useQuery(
+    {
+      latitude: data?.latitud || 0,
+      longitude: data?.longitud || 0,
+      postId: data?.id || "",
+      radiusThreshold: 100,
+    },
+    { enabled: !!data }
+  );
+
   if (!data) {
     return <div>loading...</div>;
   }
+
   return (
     <Stack spacing={100}>
       <Card shadow="xl" p={0} radius="md" withBorder>
@@ -96,6 +107,29 @@ const id = () => {
           containerClass="map-container-2"
         />
       </Center>
+      <Stack>
+        {suggested && suggested.length > 0 && (
+          <>
+            <Title order={2}>Posibles Encuentros</Title>
+            <SimpleGrid cols={3}>
+              {suggested.map((post) => (
+                <SearchCard
+                  key={post.id}
+                  ownerName={post.usuario.name || ""}
+                  dogName={post.nombrePerro}
+                  dateLost={format(post.fecha, "dd/MM/yyyy")}
+                  image={post.imagenes[0] || ""}
+                  detalles={post.detalles ?? post.detallesPerro}
+                  visto={visto}
+                  raza={post.raza}
+                  found={post.casoAbierto}
+                  id={post.id}
+                />
+              ))}
+            </SimpleGrid>
+          </>
+        )}
+      </Stack>
     </Stack>
   );
 };
