@@ -132,7 +132,9 @@ const Navbar = ({ links }: Props) => {
         <Image
           fit="contain"
           src={"https://i.imgur.com/73zUnAh.png"}
-          width={"40%"}
+          width={"34%"}
+          onClick={() => router.push("/")}
+          style={{ cursor: "pointer" }}
         />
         <Group spacing={5} className={classes.links}>
           {items}

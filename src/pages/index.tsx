@@ -12,8 +12,6 @@ import styles from "./index.module.css";
 import Footer from "../components/core/Footer";
 
 const Home: NextPage = () => {
-  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
-
   return (
     <Stack style={{ border: "0px solid black", width: "100%" }} spacing={100}>
       <Bienvenida />
