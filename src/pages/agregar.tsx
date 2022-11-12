@@ -15,7 +15,7 @@ import {
   Button,
   Slider,
 } from "@mantine/core";
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { Dropzone, DropzoneProps, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useRef, useState } from "react";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons";
 import {
@@ -25,10 +25,23 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 import { useForm } from "@mantine/form";
+import { storage } from '../firebase/firebase'
+import { ref, uploadBytes } from 'firebase/storage'
+import { v4 } from 'uuid'
 
 const agregar: NextPage = () => {
+  const [imageUpload, setImageUpload] = useState<FileWithPath | null>(null);
   const openRef = useRef<() => void>(null);
   const theme = useMantineTheme();
+
+
+  const uploadImage = () => {
+    if (imageUpload == null) return
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload)
+      .then(() => {
+        console.log("Image uploaded")
+      })
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDRbZkLZZYFiPYAJjSm6wE6k8QCs2PyDG0" || "",
@@ -123,8 +136,12 @@ const agregar: NextPage = () => {
       />
 
       <Dropzone
-        onDrop={(files) => console.log("accepted files", files)}
-        onReject={(files) => console.log("rejected files", files)}
+        onDrop={(files) => {
+          if (files[0] == null || files[0] == undefined) return; 
+          setImageUpload(files[0])
+          console.log('done')
+        }}
+        onReject={(files) => console.log('rejected files', files)}
         maxSize={3 * 1024 ** 2}
         accept={IMAGE_MIME_TYPE}
       >
@@ -157,6 +174,13 @@ const agregar: NextPage = () => {
           </div>
         </Group>
       </Dropzone>
+
+      <Button onClick={uploadImage}>
+        Click here
+      </Button>
+    </div>
+  )
+}
 
       <Stack my={30}>
         <Title order={4}>Click para agregar punto</Title>
