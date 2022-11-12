@@ -12,6 +12,7 @@ import {
   Badge,
   Card,
   Image,
+  Center,
 } from "@mantine/core";
 import { PostPerdido, User } from "@prisma/client";
 import { format } from "date-fns";
@@ -40,7 +41,7 @@ const id = () => {
       <Card shadow="xl" p={0} radius="md" withBorder>
         <Flex justify="" w={"100%"} gap={20}>
           <div style={{ width: "40%" }}>
-            <Image src={data.imagenes[0]} radius="md" />
+            <Image src={data.imagenes[0]} radius="md" height={"300px"} />
           </div>
           <Flex p={10} pr={40} justify={"space-between"} w={"60%"}>
             <Stack maw={400} justify={"center"}>
@@ -87,14 +88,14 @@ const id = () => {
           </Flex>
         </Flex>
       </Card>
-      <Container style={{ height: "500px" }}>
+      <Center>
         <GMap
           posts={[data]}
           visto={true}
           center={{ longitud: data.longitud, latitud: data.latitud }}
           containerClass="map-container-2"
         />
-      </Container>
+      </Center>
     </Stack>
   );
 };

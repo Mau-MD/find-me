@@ -74,6 +74,7 @@ export const createPostRouter = router({
           fecha: new Date(),
           edad: input.edad,
           telefono: input.telefono,
+          casoAbierto: false,
         },
       });
     }),
