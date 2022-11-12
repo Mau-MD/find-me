@@ -8,11 +8,14 @@ import {
   Paper,
   Transition,
   Title,
+  Affix,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/router";
+import LightAndDarkModeButton from "../LightDarkButton/LightDarkButton";
 
 const HEADER_HEIGHT = 60;
+;
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -124,6 +127,9 @@ const Navbar = ({ links }: Props) => {
 
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
+      <Affix position ={{top: 15, left: 30}}>
+        <LightAndDarkModeButton />
+      </Affix>
       <Container className={classes.header} size="xl">
         <Title order={3}>Find Me!</Title>
         <Group spacing={5} className={classes.links}>
