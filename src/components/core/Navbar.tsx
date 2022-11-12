@@ -13,6 +13,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/router";
 
 const HEADER_HEIGHT = 60;
+;
 
 const useStyles = createStyles((theme) => ({
   root: {
