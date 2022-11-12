@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import LightAndDarkModeButton from "../LightDarkButton/LightDarkButton";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { IconTrash } from "@tabler/icons";
+import InfoButton from "../StepsToSaveAPet/Information";
 
 const HEADER_HEIGHT = 60;
 const useStyles = createStyles((theme) => ({
@@ -133,6 +134,9 @@ const Navbar = ({ links }: Props) => {
     <Header height={HEADER_HEIGHT} className={classes.root}>
       <Affix position={{ top: 15, left: 30 }}>
         <LightAndDarkModeButton />
+      </Affix>
+      <Affix position={{ top: 15, right: 30 }}>
+        <InfoButton />
       </Affix>
       <Container className={classes.header}>
         <Paper style={{ width: "141px" }}>

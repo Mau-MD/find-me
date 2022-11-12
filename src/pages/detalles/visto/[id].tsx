@@ -18,11 +18,11 @@ import { PostPerdido, User } from "@prisma/client";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { trpc } from "../../utils/trpc";
-import SearchCard from "../../components/busqueda/SearchCard";
-import GMap from "../../components/map/Map";
-import CartaPerros from "../../components/mainpage/PerrosPrincipal/CartaPerros";
-import Amo from "../../components/perroPerdidoPerfil/Amo";
+import { trpc } from "../../../utils/trpc";
+import SearchCard from "../../../components/busqueda/SearchCard";
+import GMap from "../../../components/map/Map";
+import CartaPerros from "../../../components/mainpage/PerrosPrincipal/CartaPerros";
+import Amo from "../../../components/perroPerdidoPerfil/Amo";
 import { getUrl } from "@trpc/client/dist/links/internals/httpUtils";
 
 const id = () => {
@@ -31,22 +31,13 @@ const id = () => {
   let raza = "perro de la calle";
   const router = useRouter();
 
+  const cosa = router.query;
+  console.log(cosa);
   const { id } = router.query;
-  const data = trpc.posts.singlePost.useQuery({ id }).data;
-  const { data: suggested } = trpc.suggestions.getSuggestions.useQuery(
-    {
-      latitude: data?.latitud || 0,
-      longitude: data?.longitud || 0,
-      postId: data?.id || "",
-      radiusThreshold: 100,
-    },
-    { enabled: !!data }
-  );
-
+  const data = trpc.posts.singlePostVisto.useQuery({ id }).data;
   if (!data) {
-    return <div>loading...</div>;
+    return <div>loading diferente</div>;
   }
-
   return (
     <Stack spacing={100}>
       <Card shadow="xl" p={0} radius="md" withBorder>
@@ -60,21 +51,20 @@ const id = () => {
                 <Title>{data?.nombrePerro} 🐾</Title>
                 <Flex gap={10} align="center">
                   <Text color={"gray"}>{format(data?.fecha, "dd/MM/yy")}</Text>
-                  {data?.recompensa && <Badge color="green">Recompensa</Badge>}
                   {!visto && <Badge color="blue">{raza}</Badge>}
                 </Flex>
               </Stack>
               <Text style={{ color: "#00467f" }} weight={800}>
                 {data?.raza}
               </Text>
-              <Text weight={500}>{data?.edad} años</Text>
+              <Text weight={500}>{data?.edad} años aprox.</Text>
 
               <Text align="justify">{data?.detalles}</Text>
               <Title order={2}></Title>
             </Stack>
             <Stack justify={"space-between"} pt={10} pb={30}>
               <Amo nombre={data?.usuario.name} telefono={data?.telefono} />
-              <Button onClick={() => router.push(`/vista/${id}`)}>
+              <Button onClick={() => router.push("/vista")}>
                 <Group spacing={7}>
                   <Text>Vi a este perro</Text>
                   <svg
@@ -107,29 +97,6 @@ const id = () => {
           containerClass="map-container-2"
         />
       </Center>
-      <Stack>
-        {suggested && suggested.length > 0 && (
-          <>
-            <Title order={2}>Posibles Encuentros</Title>
-            <SimpleGrid cols={3}>
-              {suggested.map((post) => (
-                <SearchCard
-                  key={post.id}
-                  ownerName={post.usuario.name || ""}
-                  dogName={post.nombrePerro}
-                  dateLost={format(post.fecha, "dd/MM/yyyy")}
-                  image={post.imagenes[0] || ""}
-                  detalles={post.detalles ?? post.detallesPerro}
-                  visto={true}
-                  raza={post.raza}
-                  found={post.casoAbierto}
-                  id={post.id}
-                />
-              ))}
-            </SimpleGrid>
-          </>
-        )}
-      </Stack>
     </Stack>
   );
 };
