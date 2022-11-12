@@ -12,6 +12,7 @@ import SearchCard from "../busqueda/SearchCard";
 import MapCard from "./MapCard";
 import { PostsPerdidoWithUser } from "../../pages/busqueda";
 import { posts } from "../../server/trpc/router/getPost";
+import { differenceInHours } from 'date-fns'
 
 interface Props {
   posts: PostsPerdidoWithUser[];
@@ -77,15 +78,37 @@ interface MarkerProps {
   visto: boolean;
 }
 const MarkerClicked = ({ post, visto }: MarkerProps) => {
-  // useEffect(() => {
-  //   const strength = () => {
-  //     if post.raza
-  //   }
-  //   const horaActual = new Date();
-  //   const tiempo = horaActual - post.fecha;
-  // })
-  const raza = post.raza
+  const [radio, setRadio] = useState(50)
+
+  useEffect(() => {
+    const thirytMins = ["affenpinscher", "akita", "brabancon", "bulldog", "chihuahua", "collie", "cotondetulear", "dachshund", "entlebucher", "frise", "greyhound", "labrador", "leonberg", "lhasa", "maltese", "papillon", "pekinese", "schnauzer", "shihtzu", "terrier"]
+    const oneHour = ["affrican", "basenji", "borzoi", "bouvier", "bullterrier", "chow", "clumber", "cockapoo", "coonhound", "corgi", "dane", "deerhound", "dhole", "eskimo", "finnish", "germanshepherd", "havanese", "hound", "keeshond", "kelpie", "kuvasz", "labradoodle", "mastiff", "mexicanhairless", "pinscher", "pitbull", "poodle", "pug", "puggle", "redbone", "ridgeback", "rottweiler", "segugio", "setter", "spaniel", "springer", "waterdog", "whippet"]
+    const twoHours = ["airedale", "appenzell", "australian", "beagle", "bluetick", "boxer", "briard", "cattledog", "dalmatian", "dingo", "doberman", "elkhound", "golden", "groenendael", "husky", "komondor", "malamute", "malinois", "mix", "mountain", "newfoundland", "otterhound", "ovcharka", "pembroke", "pointer", "pomeranian", "pyrenees", "retriever", "saluki", "samoyed", "schipperke", "sharpei", "sheepdog", "shiba", "stbernard", "tervuren", "vizsla", "weimaraner", "wolfhound"]
+  
+    var strength = 1;
+  
+    if (post.raza in thirytMins) {
+      var strength = 0.5*5;
+    } else if (post.raza in oneHour) {
+      var strength = 1*7;
+    } else if (post.raza in twoHours) {
+      var strength = 2*10;
+    }
+    var now = new Date();
+    //var differenceInHours = require('date-fns/differenceInHours')
+    //differenceInHours(now, post.fecha)
+      var fRadio = strength*differenceInHours(now, post.fecha)/2
+      if (fRadio > 500) {
+        fRadio = 500;
+      }
+      console.log(differenceInHours(now, post.fecha))
+      console.log(fRadio)
+      setRadio(fRadio * 100)
+  
+  },[])
+
   const [clicked, setClicked] = useState(false);
+
   return (
     <>
       <MarkerF
@@ -111,7 +134,7 @@ const MarkerClicked = ({ post, visto }: MarkerProps) => {
             <MapCard post={post} />
           </InfoWindowF>
           <CircleF
-            radius={500}
+            radius={radio}
             options={{
               strokeColor: "blue",
               fillColor: "blue",
@@ -123,7 +146,7 @@ const MarkerClicked = ({ post, visto }: MarkerProps) => {
             }}
           />
           <CircleF
-            radius={1000}
+            radius={radio/2}
             options={{
               strokeColor: "blue",
               fillColor: "blue",
