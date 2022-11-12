@@ -58,6 +58,7 @@ const id = () => {
             <Stack maw={400} justify={"center"}>
               <Stack spacing={6}>
                 <Title>{data?.nombrePerro} 🐾</Title>
+                {data.casoAbierto && <Badge>Encontrado</Badge>}
                 <Flex gap={10} align="center">
                   <Text color={"gray"}>{format(data?.fecha, "dd/MM/yy")}</Text>
                   {data?.recompensa && <Badge color="green">Recompensa</Badge>}

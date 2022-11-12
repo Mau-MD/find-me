@@ -22,7 +22,6 @@ import { trpc } from "../utils/trpc";
 export type PostsPerdidoWithUser = PostPerdido & {
   usuario: User;
 };
-
 const Busqueda: NextPage = () => {
   const [raza, setRaza] = useState("");
   const [color, setColor] = useState("");
