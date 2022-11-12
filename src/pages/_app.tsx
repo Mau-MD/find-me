@@ -6,6 +6,7 @@ import { MantineProvider } from "@mantine/core";
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
+import Layout from "./layout";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -21,7 +22,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
           colorScheme: "light",
         }}
       >
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </MantineProvider>
     </SessionProvider>
   );
