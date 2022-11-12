@@ -259,49 +259,21 @@ const sendEmail = (email: Email) => {
         }
         ${
           email.detalles
-            ? `<div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8; font-size: 18px; font-family: inherit">Detalles</span></div>
+            ? `<br /><div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8; font-size: 18px; font-family: inherit">Detalles</span></div>
             <div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8">${email.detalles}</span></div><br />`
             : ``
         }
-
+        ${
+          email.imagen
+            ? `<div style="font-family: inherit; text-align: inherit"><span style="color: #ffecd8; font-size: 18px; font-family: inherit">Este es nuestro pequeño amigo:</span></div>
+            <img class="max-width" border="0" style="padding:10px 0px 0px 0px display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px;" alt="" data-proportionally-constrained="true" data-responsive="false" src="${email.imagen}">`
+            : ``
+        }
           </td>
         </tr>
       </tbody>
     </html>
     `
-    
-
-
-    //   <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center"><img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px;" width="153" alt="" data-proportionally-constrained="true" data-responsive="false" src="http://cdn.mcauto-images-production.sendgrid.net/0122155ee32bb770/881b8954-e7af-4d14-a571-da90cdff3c12/2051x669.png" height="49"></td>
-    //   <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center">
-    //     <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:100% !important; width:100%; height:auto !important;" width="NaN" alt="" data-proportionally-constrained="true" data-responsive="true" src="http://cdn.mcauto-images-production.sendgrid.net/0122155ee32bb770/b8d2346e-e8a8-4d3b-a6d4-6c33f230c921/1080x1080.png">
-    //   </td>
-    //   <div style="font-family: inherit; text-align: inherit">· <b>Raza</b>: ${
-    //     email.raza
-    //   }. &nbsp;</div>
-    //   ${
-    //     email.color
-    //       ? `<div style="font-family: inherit; text-align: inherit">&emsp;· <b>Color</b>: ${email.color}. &nbsp;</div>`
-    //       : ""
-    //   }
-    //   ${
-    //     email.edad
-    //       ? `<div style="font-family: inherit; text-align: inherit">&emsp;· <b>Edad</b>: ${email.edad}. &nbsp;</div>`
-    //       : ""
-    //   }
-    //   ${
-    //     email.detalles
-    //       ? `<div style="font-family: inherit; text-align: inherit">&emsp;· <b>Detalles</b>: ${email.detalles}. &nbsp;</div>`
-    //       : ""
-    //   }
-    //   <div style="font-family: inherit; text-align: inherit"><br /></div>
-    //   <div style="font-family: inherit; text-align: inherit">Se muestra una foto del perro extraviado a continuación:</div>
-    //   <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center">
-    //     <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:100% !important; width:100%; height:auto !important;" width="0" alt="" data-proportionally-constrained="true" data-responsive="true" src="${
-    //       email.imagen
-    //     }">
-    //   </td>
-    // `,
   };
   sgMail
     .send(msg)
