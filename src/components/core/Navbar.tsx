@@ -8,20 +8,23 @@ import {
   Paper,
   Transition,
   Title,
+  Image,
   Affix,
+  Button,
+  Menu,
+  Avatar,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import LightAndDarkModeButton from "../LightDarkButton/LightDarkButton";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { IconTrash } from "@tabler/icons";
 
 const HEADER_HEIGHT = 60;
-;
-
 const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
     zIndex: 1,
-    marginBottom: 0,
   },
 
   dropdown: {
@@ -107,6 +110,7 @@ const Navbar = ({ links }: Props) => {
   const [active, setActive] = useState("");
   const { classes, cx } = useStyles();
   const router = useRouter();
+  const { data } = useSession();
 
   const items = links.map((link) => (
     <span
@@ -127,14 +131,49 @@ const Navbar = ({ links }: Props) => {
 
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
-      <Affix position ={{top: 15, left: 30}}>
+      <Affix position={{ top: 15, left: 30 }}>
         <LightAndDarkModeButton />
       </Affix>
-      <Container className={classes.header} size="xl">
-        <Title order={3}>Find Me!</Title>
+      <Container className={classes.header}>
+        <Paper style={{ width: "141px" }}>
+          <Image
+            fit="contain"
+            src={"https://i.imgur.com/73zUnAh.png"}
+            width={"100px"}
+            onClick={() => router.push("/")}
+            style={{ cursor: "pointer" }}
+          />
+        </Paper>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
+
+        {!data ? (
+          <Button size="sm" variant="outline" onClick={() => signIn("google")}>
+            Login
+          </Button>
+        ) : (
+          <Menu>
+            <Menu.Target>
+              <Button variant="white">
+                <Group>
+                  <Avatar
+                    src={data.user.image}
+                    radius="lg"
+                    size={"md"}
+                  ></Avatar>
+                  {data.user.name}
+                </Group>
+              </Button>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item>Mis publicaciones</Menu.Item>
+              <Menu.Item color="red" onClick={() => signOut()}>
+                Cerrar Sesion
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        )}
 
         <Burger
           opened={opened}

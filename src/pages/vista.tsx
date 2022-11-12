@@ -1,13 +1,26 @@
 import { type NextPage } from "next";
-import { Group, Checkbox, Select, Text, Flex, TextInput, Textarea, NumberInput, useMantineTheme } from '@mantine/core'
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import { useRef } from "react";
+import { Group, Checkbox, Select, Text, Flex, TextInput, Textarea, NumberInput, useMantineTheme, Button, Stack } from '@mantine/core'
+import { Dropzone, DropzoneProps, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { useState, useRef } from "react";
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons';
+import { ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { storage } from "../firebase/firebase";
 
 
 const vista: NextPage = () => {
+  const [imageUpload, setImageUpload] = useState<FileWithPath | null>(null);
   const openRef = useRef<() => void>(null);
   const theme = useMantineTheme();
+
+  const uploadImage = () => {
+    if (imageUpload == null) return
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload)
+      .then(() => {
+        console.log("Image uploaded")
+      })
+    }
 
   return (
     <div>
@@ -89,6 +102,9 @@ const vista: NextPage = () => {
         </div>
       </Group>
     </Dropzone>
+    <Stack mt={30}>
+      <Button type="submit" onClick={uploadImage}>Subir</Button>
+    </Stack>
     </div>
   )
 }

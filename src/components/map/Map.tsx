@@ -16,8 +16,9 @@ import { posts } from "../../server/trpc/router/getPost";
 interface Props {
   posts: PostsPerdidoWithUser[];
   visto: boolean;
+  containerClass?: string;
 }
-const GMap = ({ posts, visto }: Props) => {
+const GMap = ({ posts, visto, containerClass }: Props) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDRbZkLZZYFiPYAJjSm6wE6k8QCs2PyDG0" || "",
   });
@@ -44,28 +45,29 @@ const GMap = ({ posts, visto }: Props) => {
         lat: currentLocation.latitud,
         lng: currentLocation.longitud,
       }}
-      mapContainerClassName="map-container"
+      mapContainerClassName={containerClass || "map-container"}
     >
-      {posts.map((post) => (
-        <MarkerClicked post={post} key={post.id} visto={visto} />
-        // <MarkerF
-        //   position={{
-        //     lat: post.latitud,
-        //     lng: post.longitud,
-        //   }}
-        //   onClick={() => setClicked(!clicked)}
-        // />
-        // {clicked && (
-        //   <InfoWindowF
-        //     position={{
-        //       lat: currentLocation.coords.latitude + 0.001,
-        //       lng: currentLocation.coords.longitude,
-        //     }}
-        //   >
-        //     <MapCard />
-        //   </InfoWindowF>
-        // )}
-      ))}
+      {posts &&
+        posts.map((post) => (
+          <MarkerClicked post={post} key={post.id} visto={visto} />
+          // <MarkerF
+          //   position={{
+          //     lat: post.latitud,
+          //     lng: post.longitud,
+          //   }}
+          //   onClick={() => setClicked(!clicked)}
+          // />
+          // {clicked && (
+          //   <InfoWindowF
+          //     position={{
+          //       lat: currentLocation.coords.latitude + 0.001,
+          //       lng: currentLocation.coords.longitude,
+          //     }}
+          //   >
+          //     <MapCard />
+          //   </InfoWindowF>
+          // )}
+        ))}
     </GoogleMap>
   );
 };
