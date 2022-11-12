@@ -7,7 +7,7 @@ const CartaPerros = () => {
       p="sm"
       radius="md"
       withBorder
-      style={{ maxWidth: "400px" }}
+      style={{ maxWidth: "600px" }}
     >
       <Group>
         <img
@@ -16,11 +16,13 @@ const CartaPerros = () => {
           }
           style={{ width: "30%", borderRadius: "10%" }}
         ></img>
-        <Stack justify={"space-between"}>
-          <Stack spacing={"xs"}>
-            <Title size={"sm"}>Nombre del perro</Title>
-            <Text size="xs">Dueño del perro</Text>
-          </Stack>
+        <Stack justify={"space-between"} style={{ border: "1px solid black" }}>
+          <Group>
+            <Stack spacing={0}>
+              <Title size={"sm"}>Nombre del perro</Title>
+              <Text size="xs">Dueño del perro</Text>
+            </Stack>
+          </Group>
           <div>perdido desde x</div>
         </Stack>
       </Group>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logo from "../../img/findme_imagotipo.png";
 import {
   createStyles,
   Header,
@@ -18,7 +19,6 @@ const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
     zIndex: 1,
-    background: "#ffe434",
   },
 
   dropdown: {
