@@ -18,7 +18,7 @@ const MapCard = ({ post }: Props) => {
   return (
     <Stack spacing={"sm"}>
       <Card.Section>
-        <Image src={post.imagenes[0] || ""} height={100} alt="Norway" />{" "}
+        <Image src={post.imagen[0] || ""} height={100} alt="Norway" />{" "}
       </Card.Section>
       <Group>
         <Title order={4}>{post.nombrePerro}</Title>
