@@ -1,4 +1,5 @@
 import { ActionIcon, useMantineColorScheme  } from "@mantine/core";
+import { IconSun, IconMoonStars } from '@tabler/icons';
 import React from "react";
 
 const LightAndDarkModeButton = () => {
@@ -13,6 +14,7 @@ const LightAndDarkModeButton = () => {
         >
         {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
         </ActionIcon>
+
     )
 }
 
