@@ -1,0 +1,5 @@
+30mins = [affenpinscher, akita, brabancon, bulldog, chihuahua, collie, cotondetulear, dachshund, entlebucher, frise, greyhound, labrador, leonberg, lhasa, maltese, papillon, pekinese, schnauzer, shihtzu, terrier, ]
+
+1hr = [affrican, basenji, borzoi, bouvier, bullterrier, chow, clumber, cockapoo, coonhound, corgi, dane, deerhound, dhole, eskimo, finnish, germanshepherd, havanese, hound, keeshond, kelpie, kuvasz, labradoodle, mastiff, mexicanhairless, pinscher, pitbull, poodle, pug, puggle, redbone, ridgeback, rottweiler, segugio, setter, spaniel, springer, waterdog, whippet]
+
+2hr = [airedale, appenzell, australian, beagle, bluetick, boxer, briard, cattledog, dalmatian, dingo, doberman, elkhound, golden, groenendael, husky, komondor, malamute, malinois, mix, mountain, newfoundland, otterhound, ovcharka, pembroke, pointer, pomeranian, pyrenees, retriever, saluki, samoyed, schipperke, sharpei, sheepdog, shiba, stbernard, tervuren, vizsla, weimaraner, wolfhound]
