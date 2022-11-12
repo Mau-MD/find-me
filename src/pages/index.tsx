@@ -12,22 +12,8 @@ import styles from "./index.module.css";
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
 
-  return (
-    <AppShell
-      padding="md"
-      header={<Navbar />}
-      styles={(theme) => ({
-        main: {
-          backgroundColor:
-            theme.colorScheme === "dark"
-              ? theme.colors.dark[8]
-              : theme.colors.white,
-        },
-      })}
-    >
-      {/* Your application here */}
-    </AppShell>
-  );
+  return <div>hi</div>;
+  /* Your application here */
 };
 
 export default Home;
