@@ -33,7 +33,9 @@ const SearchList = ({ posts, visto }: Props) => {
             reward={post.recompensa}
             dateLost={format(post.fecha, "dd/MM/yyyy")}
             image={post.imagen}
-            detalles={post.detalles}
+            detalles={post.detalles ?? post.detallesPerro}
+            visto={visto}
+            raza={post.raza}
           />
         ))}
       </Stack>
