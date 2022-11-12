@@ -9,20 +9,20 @@ function Steps() {
     return (
         <>
             <Stepper active={active} onStepClick={setActive} breakpoint="sm">
-                <Stepper.Step label="First step" description="Create an account" allowStepSelect={active > 0}>
-                    Step 1 content: Create an account
+                <Stepper.Step label="Primero" description="Toma fotos de la mascota" allowStepSelect={active > 0}>
+                    Primer paso: Asegurate de tomar fotos del perro para poder integrarlas a tu publicación
                 </Stepper.Step>
-                <Stepper.Step label="Second step" description="Verify email" allowStepSelect={active > 1}>
-                    Step 2 content: Verify email
+                <Stepper.Step label="Después" description="Intenta acercarte" allowStepSelect={active > 1}>
+                    Paso dos: Solo si el perro es docil acercate e intentar rescatarlo
                 </Stepper.Step>
-                <Stepper.Step label="Final step" description="Get full access" allowStepSelect={active > 2}>
-                    Step 3 content: Get full access
+                <Stepper.Step label="Crear post" description="Publica que lo encontraste" allowStepSelect={active > 2}>
+                    Paso tres: Si no pudiste acercarte, al menos intenta dar todos los detalles posibles.
                 </Stepper.Step>
-                <Stepper.Step label="Final step" description="Get full access" allowStepSelect={active > 3}>
-                    Step 3 content: Get full access
+                <Stepper.Step label="Por último" description="Espera e intentar ponerte en contacto" allowStepSelect={active > 3}>
+                    Revisa si hay publicaciones de perros extraviados que se parezcan
                 </Stepper.Step>
                 <Stepper.Completed>
-                Completed, click back button to get to previous step
+                Muchas gracias por ayudar a la comunidad de FindMe!
                 </Stepper.Completed>
             </Stepper>
 

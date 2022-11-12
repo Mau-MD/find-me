@@ -13,7 +13,7 @@ const InfoButton = () => {
             <Modal
             opened={opened}
             onClose={() => setOpened(false)}
-            title="Introduce yourself!"
+            title="Título mamalón"
             size="80%"
             >
                 <Stack>
