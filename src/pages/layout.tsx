@@ -15,7 +15,7 @@ const links: {
 
 const layout = ({ children }: Props) => {
   return (
-    <AppShell header={<Navbar links={links} />}>
+    <AppShell header={<Navbar links={links} />} padding={"lg"}>
       <Container size={"xl"}>{children}</Container>
     </AppShell>
   );
