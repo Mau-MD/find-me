@@ -61,6 +61,13 @@ export const colorSelect = c.map((c) => {
   };
 });
 
+export const uploadImage = async (image: FileWithPath) => {
+  const imageRef = ref(storage, `images/${image.name + v4()}`);
+  const uploadedRef = await uploadBytes(imageRef, image);
+  const imageURL = await getDownloadURL(uploadedRef.ref);
+  return imageURL;
+};
+
 const agregar: NextPage = () => {
   const [imageUpload, setImageUpload] = useState<FileWithPath | null>(null);
   const openRef = useRef<() => void>(null);
@@ -68,13 +75,6 @@ const agregar: NextPage = () => {
   const { data: session } = useSession();
 
   const [filesToUpload, setFilesToUpload] = useState<FileWithPath[]>([]);
-
-  const uploadImage = async (image: FileWithPath) => {
-    const imageRef = ref(storage, `images/${image.name + v4()}`);
-    const uploadedRef = await uploadBytes(imageRef, image);
-    const imageURL = await getDownloadURL(uploadedRef.ref);
-    return imageURL;
-  };
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDRbZkLZZYFiPYAJjSm6wE6k8QCs2PyDG0" || "",

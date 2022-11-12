@@ -7,16 +7,18 @@ export const createPostRouter = router({
     .input(
       z.object({
         userId: z.string(),
-        color: z.custom(),
-        detalles: z.string().optional(),
+        color: z.string(),
+        detallesPerro: z.string(),
+        nombrePlaca: z.string(),
         raza: z.string(),
         latitud: z.number(),
         longitud: z.number(),
-        imagen: z.string(),
+        fecha: z.date(),
         imagenes: z.array(z.string()),
         rescatado: z.boolean(),
-        detallesPlaca: z.string().optional(),
-        edad: z.number().int().optional(),
+        detallesPlaca: z.string(),
+        edad: z.number().int(),
+        telefono: z.string(),
       })
     )
     .mutation(({ ctx, input }) => {
@@ -24,7 +26,10 @@ export const createPostRouter = router({
         data: {
           userId: input.userId,
           color: input.color,
-          detallesPerro: input.detalles,
+          detallesPerro: input.detallesPerro,
+          nombrePlaca: input.nombrePlaca,
+          fecha: input.fecha,
+          telefono: input.telefono,
           raza: input.raza,
           latitud: input.latitud,
           longitud: input.longitud,
