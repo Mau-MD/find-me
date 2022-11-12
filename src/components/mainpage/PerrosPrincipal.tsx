@@ -50,7 +50,7 @@ const PerrosPrincipal = () => {
           onClick={() => router.push("/agregar")}
           fullWidth={matches}
         >
-          Perdi Mi Perro
+          Perdí Mi Perro
         </Button>
         <Button
           size="lg"
@@ -60,7 +60,7 @@ const PerrosPrincipal = () => {
           onClick={() => router.push("/vista")}
           fullWidth={matches}
         >
-          Encontre Un Perro
+          Encontré Un Perro
         </Button>
       </Group>
       <Title order={2}>Perros En Búsqueda</Title>

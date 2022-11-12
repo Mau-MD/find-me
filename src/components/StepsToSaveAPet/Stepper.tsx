@@ -38,8 +38,8 @@ function Steps({ setOpened }: any) {
           <Stack justify={"center"} align={"center"}>
             <Title>Primer Paso:</Title>
             <Text>
-              `Asegúrate de tomar fotos del perro para poder integrarlas a tu
-              publicación
+              Asegúrate de tomar fotos del perro para poder integrarlas a tu
+              publicación.
             </Text>
             <Image
               src={"https://i.imgur.com/O9Y5SQQ.png"}
@@ -54,9 +54,9 @@ function Steps({ setOpened }: any) {
           allowStepSelect={active > 1}
         >
           <Stack justify={"center"} align={"center"}>
-            <Title>Segundo pasos:</Title>
+            <Title>Segundo paso:</Title>
             <Text>
-              Paso dos: Solo si el perro es dócil acercate e intenta rescatarlo
+              Sólo si el perro es dócil acercate e intenta rescatarlo.
             </Text>
             <Image
               src={"https://i.imgur.com/icdMBAd.png"}
@@ -73,8 +73,8 @@ function Steps({ setOpened }: any) {
           <Stack justify={"center"} align={"center"}>
             <Title>Tercer Paso:</Title>
             <Text>
-              Paso tres: Si no pudiste acercarte, al menos intenta dar todos los
-              detalles posibles.
+              Si no puedes acercarte, al menos intenta proporcionar todos los
+              detalles posibles en tu publicación acerca del perro.
             </Text>
             <Image
               src={"https://i.imgur.com/uoGNPXK.png"}
@@ -89,9 +89,9 @@ function Steps({ setOpened }: any) {
           allowStepSelect={active > 3}
         >
           <Stack justify={"center"} align={"center"}>
-            <Title>Ultimo Paso:</Title>
+            <Title>Último Paso:</Title>
             <Text>
-              Revisa si hay publicaciones de perros extraviados que se parezcan
+              Revisa si hay publicaciones de perros extraviados que se parezcan.
             </Text>
             <Image
               src={"https://i.imgur.com/jN7KJoj.png"}
@@ -102,8 +102,8 @@ function Steps({ setOpened }: any) {
         </Stepper.Step>
         <Stepper.Completed>
           <Stack justify={"center"} align={"center"}>
-            <Title>Todo Listo!</Title>
-            <Text>Muchas gracias por apoyar a la comunidad de Find me!</Text>
+            <Title>¡Todo Listo!</Title>
+            <Text>Muchas gracias por apoyar a la comunidad de FindMe!</Text>
             <Image
               src={"https://i.imgur.com/Gge1R8t.png"}
               height={200}
