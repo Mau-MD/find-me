@@ -4,6 +4,15 @@ import { sendEmail } from "../../twilio/sendEmail"
 
 
 export const emailRouter = router({
+  GetEmails: publicProcedure
+    .query(({ ctx }) => {
+      return ctx.prisma.user.findMany({
+        select: {
+          email: true
+        }
+      })
+    }),
+
   Send: publicProcedure
     .input(z.object({
       from_mail: z.string(),

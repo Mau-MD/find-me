@@ -95,5 +95,5 @@ export const posts = router({
     )
     .mutation(({ ctx, input }) => {
       return ctx.prisma.postPerdido.delete({ where: { id: input.id } });
-    }),
+    })
 });
