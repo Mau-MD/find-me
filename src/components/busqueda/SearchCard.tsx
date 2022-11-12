@@ -72,7 +72,11 @@ const SearchCard = ({
       shadow={"md"}
       w="100%"
       onClick={() => {
-        router.push(`/detalles/${id}`);
+        if (visto) {
+          router.push(`/detalles/visto/${id}`);
+        } else {
+          router.push(`/detalles/${id}`);
+        }
       }}
     >
       {found && (

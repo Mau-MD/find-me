@@ -12,7 +12,6 @@ export const posts = router({
     )
     .query(async ({ ctx, input }) => {
       if (input.category === "perdidos") {
-        console.log("PERDIDOS");
         return await ctx.prisma.postPerdido.findMany({
           where: {
             raza: { contains: input.raza },
@@ -63,6 +62,22 @@ export const posts = router({
     )
     .query(async ({ input, ctx }) => {
       return await ctx.prisma.postPerdido.findUnique({
+        where: {
+          id: input.id,
+        },
+        include: {
+          usuario: true,
+        },
+      });
+    }),
+  singlePostVisto: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      return await ctx.prisma.postVisto.findUnique({
         where: {
           id: input.id,
         },

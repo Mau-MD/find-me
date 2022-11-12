@@ -173,7 +173,6 @@ const vista: NextPage = () => {
         onDrop={(files) => {
           if (!files) return;
           setFilesToUpload(files);
-          console.log("done");
         }}
         onReject={(files) => console.log("rejected files", files)}
         maxSize={3 * 1024 ** 2}

@@ -208,8 +208,6 @@ const MarkerClicked = ({ post, visto }: MarkerProps) => {
     if (fRadio > 500) {
       fRadio = 500;
     }
-    console.log(differenceInHours(now, post.fecha));
-    console.log(fRadio);
     setRadio(fRadio * 100);
   }, []);
 
