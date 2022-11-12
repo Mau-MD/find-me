@@ -37,4 +37,12 @@ export const posts = router({
         },
       });
     }),
+  foundSoFar: publicProcedure.query(async ({ ctx }) => {
+    const posts = await ctx.prisma.postPerdido.findMany({
+      where: {
+        casoAbierto: false,
+      },
+    });
+    return posts.length;
+  }),
 });

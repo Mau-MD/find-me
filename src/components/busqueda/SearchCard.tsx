@@ -34,7 +34,7 @@ const SearchCard = ({
   return (
     <Card withBorder shadow={"md"} w="100%">
       <Stack h="100%">
-        <Image src={image} />
+        <Image src={image} height="200px" />
         <Stack>
           <Stack spacing={1}>
             <Group position="apart">
