@@ -6,6 +6,7 @@ import { updateRouter } from "./updatePost";
 import { emailRouter } from "./emails";
 import { posts } from "./getPost";
 import { suggestions } from "./suggestions";
+import { comments } from "./comments";
 
 export const appRouter = router({
   example: exampleRouter,
@@ -15,6 +16,7 @@ export const appRouter = router({
   posts: posts,
   emails: emailRouter,
   suggestions: suggestions,
+  comments: comments,
 });
 
 // export type definition of API
