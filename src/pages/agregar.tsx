@@ -175,10 +175,6 @@ const agregar: NextPage = () => {
         </Group>
       </Dropzone>
 
-      <Button onClick={uploadImage}>
-        Click here
-      </Button>
-
       <Stack my={30}>
         <Title order={4}>Click para agregar punto</Title>
         <Slider
