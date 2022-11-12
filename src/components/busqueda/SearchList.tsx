@@ -28,10 +28,11 @@ const SearchList = ({ posts }: Props) => {
           <SearchCard
             key={post.id}
             ownerName={post.usuario.name || ""}
-            dogName="Feredico"
+            dogName={post.nombrePerro}
             reward={post.recompensa}
             dateLost={format(post.fecha, "dd/MM/yyyy")}
             image={post.imagen}
+            detalles={post.detalles}
           />
         ))}
       </Stack>
