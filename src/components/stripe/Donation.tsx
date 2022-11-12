@@ -9,7 +9,7 @@ const CardDisplay = () => {
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        size="33%"
+        size="40%"
         title="Ayúdanos a seguir encontrando a tus mascotas"
       >
         <Flex
