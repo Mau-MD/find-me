@@ -21,7 +21,7 @@ const layout = ({ children }: Props) => {
         { link: "/", label: "Home" },
         { link: "/busqueda", label: "Busqueda" },
         { link: "/agregar", label: "Agregar" },
-        { link: "vista", label: "Vista" },
+        { link: "/vista", label: "Vista" },
       ]);
   }, [data]);
 

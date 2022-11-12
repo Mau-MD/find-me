@@ -15,6 +15,7 @@ import {
   Center,
   Textarea,
   Checkbox,
+  Loader,
 } from "@mantine/core";
 import { PostPerdido, User } from "@prisma/client";
 import { format } from "date-fns";
@@ -68,7 +69,13 @@ const id = () => {
     },
   });
   if (!data) {
-    return <div>loading...</div>;
+    return (
+      <Center w={"100vw"}>
+        <Center h={"80vh"}>
+          <Loader />
+        </Center>
+      </Center>
+    );
   }
 
   return (
