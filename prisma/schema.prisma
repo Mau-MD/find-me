@@ -60,32 +60,43 @@ model User {
 }
 
 model PostPerdido {
-  id         String   @id @default(cuid())
-  usuario    User     @relation(fields: [userId], references: [id])
-  userId     String
-  color      String
-  detalles   String?
-  raza       String
-  latitud    Float
-  altitud    Float
-  fecha      DateTime @default(now())
-  imagen     String
-  recompensa Boolean  @default(false)
-  edad       Int?
+  id          String      @id @default(cuid())
+  usuario     User        @relation(fields: [userId], references: [id])
+  userId      String
+  color       colorPerros
+  detalles    String?
+  raza        String
+  latitud     Float
+  longitud    Float
+  fecha       DateTime    @default(now())
+  imagen      String
+  recompensa  Boolean     @default(false)
+  edad        Int?
+  casoAbierto Boolean     @default(true)
+  nombrePerro String
 }
 
 model PostVisto {
-  id            String   @id @default(cuid())
-  usuario       User     @relation(fields: [userId], references: [id])
+  id            String      @id @default(cuid())
+  usuario       User        @relation(fields: [userId], references: [id])
   userId        String
-  color         String
-  detalles      String?
+  color         colorPerros
+  detallesPerro String?
   raza          String
   latitud       Float
-  altitud       Float
-  fecha         DateTime @default(now())
+  longitud      Float
+  fecha         DateTime    @default(now())
   imagen        String
   rescatado     Boolean
   detallesPlaca String?
   edad          Int?
+}
+
+enum colorPerros {
+  Blanco
+  Negro
+  Cafe
+  Gris
+  BiColor
+  TriColor
 }
