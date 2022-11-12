@@ -2,6 +2,7 @@ import { AppShell, Container } from "@mantine/core";
 import Navbar from "../components/core/Navbar";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import Footer from ".//../components/core/Footer";
 
 interface Props {
   children: React.ReactNode;
@@ -25,7 +26,11 @@ const layout = ({ children }: Props) => {
   }, [data]);
 
   return (
-    <AppShell header={<Navbar links={links} />} padding={"lg"}>
+    <AppShell
+      header={<Navbar links={links} />}
+      padding={"lg"}
+      footer={<Footer />}
+    >
       <Container size={"xl"}>{children}</Container>
     </AppShell>
   );
