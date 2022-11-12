@@ -22,7 +22,6 @@ const Home: NextPage = () => {
       <Footer />
     </Stack>
   );
-  /* Your application here */
 };
 
 export default Home;
