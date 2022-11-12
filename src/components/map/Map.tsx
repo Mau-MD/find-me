@@ -11,11 +11,13 @@ import { Center, Loader } from "@mantine/core";
 import SearchCard from "../busqueda/SearchCard";
 import MapCard from "./MapCard";
 import { PostsPerdidoWithUser } from "../../pages/busqueda";
+import { posts } from "../../server/trpc/router/getPost";
 
 interface Props {
   posts: PostsPerdidoWithUser[];
+  visto: boolean;
 }
-const GMap = ({ posts }: Props) => {
+const GMap = ({ posts, visto }: Props) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyDRbZkLZZYFiPYAJjSm6wE6k8QCs2PyDG0" || "",
   });
@@ -45,7 +47,7 @@ const GMap = ({ posts }: Props) => {
       mapContainerClassName="map-container"
     >
       {posts.map((post) => (
-        <MarkerClicked post={post} key={post.id} />
+        <MarkerClicked post={post} key={post.id} visto={visto} />
         // <MarkerF
         //   position={{
         //     lat: post.latitud,
@@ -70,8 +72,9 @@ const GMap = ({ posts }: Props) => {
 
 interface MarkerProps {
   post: PostsPerdidoWithUser;
+  visto: boolean;
 }
-const MarkerClicked = ({ post }: MarkerProps) => {
+const MarkerClicked = ({ post, visto }: MarkerProps) => {
   const [clicked, setClicked] = useState(false);
   return (
     <>
@@ -79,6 +82,11 @@ const MarkerClicked = ({ post }: MarkerProps) => {
         position={{
           lat: post.latitud,
           lng: post.longitud,
+        }}
+        options={{
+          icon: visto
+            ? "https://i.imgur.com/cXq32r2.png"
+            : "https://i.imgur.com/UJcpuoX.png",
         }}
         onClick={() => setClicked(!clicked)}
       />
@@ -92,6 +100,18 @@ const MarkerClicked = ({ post }: MarkerProps) => {
           >
             <MapCard post={post} />
           </InfoWindowF>
+          <CircleF
+            radius={500}
+            options={{
+              strokeColor: "blue",
+              fillColor: "blue",
+              fillOpacity: 0.1,
+            }}
+            center={{
+              lat: post.latitud,
+              lng: post.longitud,
+            }}
+          />
           <CircleF
             radius={1000}
             options={{

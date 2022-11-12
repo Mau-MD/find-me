@@ -46,10 +46,10 @@ const Busqueda: NextPage = () => {
       <SearchFilters raza={raza} setRaza={setRaza} />
       <Flex>
         <Paper w={"50%"}>
-          <SearchList posts={posts} />
+          <SearchList posts={posts} visto={category === "vistos"} />
         </Paper>
         <Paper pos={"relative"} pl={"lg"}>
-          <GMap posts={posts} />
+          <GMap posts={posts} visto={category === "vistos"} />
         </Paper>
       </Flex>
     </Stack>

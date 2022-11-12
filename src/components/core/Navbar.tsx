@@ -8,6 +8,7 @@ import {
   Paper,
   Transition,
   Title,
+  Image,
   Affix,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -15,13 +16,10 @@ import { useRouter } from "next/router";
 import LightAndDarkModeButton from "../LightDarkButton/LightDarkButton";
 
 const HEADER_HEIGHT = 60;
-;
-
 const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
     zIndex: 1,
-    marginBottom: 0,
   },
 
   dropdown: {
@@ -127,11 +125,15 @@ const Navbar = ({ links }: Props) => {
 
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
-      <Affix position ={{top: 15, left: 30}}>
+      <Affix position={{ top: 15, left: 30 }}>
         <LightAndDarkModeButton />
       </Affix>
-      <Container className={classes.header} size="xl">
-        <Title order={3}>Find Me!</Title>
+      <Container className={classes.header}>
+        <Image
+          fit="contain"
+          src={"https://i.imgur.com/73zUnAh.png"}
+          width={"40%"}
+        />
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
