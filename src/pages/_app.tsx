@@ -23,8 +23,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         }}
       >
         <Layout>
-          hola
-          {/* <Component {...pageProps} /> */}
+          <Component {...pageProps} />
         </Layout>
       </MantineProvider>
     </SessionProvider>
