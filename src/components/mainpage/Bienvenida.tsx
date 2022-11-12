@@ -1,14 +1,33 @@
-import { Stack, Flex, Image, Container, Text } from "@mantine/core";
+import { Carousel } from "@mantine/carousel";
+import {
+  Stack,
+  Flex,
+  Image,
+  Container,
+  Text,
+  Center,
+  Title,
+} from "@mantine/core";
 const Bienvenida = () => {
   return (
     <Stack style={{ width: "100%" }}>
-      <Flex justify={"center"} style={{}}>
-        <Image src={"https://i.imgur.com/73zUnAh.png"} width={"90%"} />
-      </Flex>
+      <div>
+        {/* <Carousel mx="auto" withIndicators height={500}>
+          <Carousel.Slide>
+            <Image
+              src={
+                "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=640:*"
+              }
+            />
+          </Carousel.Slide>
+          <Carousel.Slide>2</Carousel.Slide>
+          <Carousel.Slide>3</Carousel.Slide>
+        </Carousel> */}
+      </div>
       <Container>
-        <Text size="xl" weight={800} align="center">
+        <Title align="center">
           Ayudanos a encontrar el perro de alguien lo antes posible 🐕
-        </Text>
+        </Title>
       </Container>
     </Stack>
   );
