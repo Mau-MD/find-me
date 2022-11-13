@@ -214,7 +214,7 @@ const id = () => {
                 {...form.getInputProps("comentario")}
               />
               <Checkbox
-                label="Compartir Informacion de Contacto con el Dueno"
+                label="Compartir Informacion de Contacto con el Dueño"
                 {...form.getInputProps("compartir")}
               />
             </Stack>
