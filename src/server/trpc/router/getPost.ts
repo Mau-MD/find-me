@@ -56,7 +56,7 @@ export const posts = router({
   foundSoFar: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.prisma.postPerdido.findMany({
       where: {
-        casoAbierto: false,
+        casoAbierto: true,
       },
     });
     return posts.length;
@@ -117,7 +117,5 @@ export const posts = router({
     )
     .mutation(({ ctx, input }) => {
       return ctx.prisma.postPerdido.delete({ where: { id: input.id } });
-    })
-
-
+    }),
 });

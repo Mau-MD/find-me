@@ -215,6 +215,8 @@ const MarkerClicked = ({ post, visto }: MarkerProps) => {
 
   const [clicked, setClicked] = useState(false);
 
+  if (post.casoAbierto) return <></>;
+
   return (
     <>
       <MarkerF
